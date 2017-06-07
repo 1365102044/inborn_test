@@ -1,0 +1,58 @@
+10
+
+dir
+4258
+http://liuwq@192.168.1.52/svn/code/inshop/ios/trunk/inborn/inborn/Module/CertifiedPayment
+http://liuwq@192.168.1.52/svn/code
+
+
+
+2017-05-11T02:48:01.736908Z
+4201
+zhengjian
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+90033c5c-e9ee-4742-a0ea-8ca1ff45c965
+
+BindBankCard
+dir
+
+PaymentAlert
+dir
+
+BanCardList
+dir
+
+CertifiedHelp
+dir
+
+VerifyPhoneNumber
+dir
+
+ChangePhoneNumber
+dir
+
+Base
+dir
+
+RealNameAndBindBankCard
+dir
+
+MyBankCard
+dir
+
+BankService
+dir
+

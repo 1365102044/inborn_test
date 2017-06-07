@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ChildViewControllersArray</key>
+	<array>
+		<dict>
+			<key>title</key>
+			<string>TABBAR_HOMEPAGE_TITLE_STRINGKEY</string>
+			<key>imageFilePath</key>
+			<string>TabBar</string>
+			<key>imageNamed</key>
+			<string>tabBar_home</string>
+			<key>viewController</key>
+			<string>YBHomePageController</string>
+		</dict>
+		<dict>
+			<key>title</key>
+			<string>TABBAR_FINDER_TITLE_STRINGKEY</string>
+			<key>imageFilePath</key>
+			<string>TabBar</string>
+			<key>imageNamed</key>
+			<string>tabBar_finder</string>
+			<key>viewController</key>
+			<string>YBFinderViewCnoroller</string>
+		</dict>
+		<dict>
+			<key>title</key>
+			<string></string>
+			<key>imageFilePath</key>
+			<string></string>
+			<key>imageNamed</key>
+			<string>tabBar_output</string>
+			<key>viewController</key>
+			<string>ZJBaseViewController</string>
+		</dict>
+		<dict>
+			<key>title</key>
+			<string>消息</string>
+			<key>imageFilePath</key>
+			<string>TabBar</string>
+			<key>imageNamed</key>
+			<string>tabBar_message</string>
+			<key>viewController</key>
+			<string>YBMessageCenterListViewController</string>
+		</dict>
+		<dict>
+			<key>title</key>
+			<string>TABBAR_MINE_TITLE_STRINGKEY</string>
+			<key>imageFilePath</key>
+			<string>TabBar</string>
+			<key>imageNamed</key>
+			<string>tabBar_mine</string>
+			<key>viewController</key>
+			<string>YBMeMainViewController</string>
+		</dict>
+	</array>
+</dict>
+</plist>

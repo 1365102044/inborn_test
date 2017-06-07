@@ -1,0 +1,628 @@
+//
+//  YBLoginViewController.m
+//  inborn
+//
+//  Created by 刘文强 on 2017/3/15.
+//  Copyright © 2017年 inborn. All rights reserved.
+//
+
+#import "YBLoginViewController.h"
+#import "YBLoginTopBigView.h"
+#import "YBResetPassWordViewController.h"
+#import "YBRegisterPhoneViewController.h"
+#import "ZJBaseBarButtonItem.h"
+#import "YBSearchHistoryRecordViewController.h"
+#import "ZJLoginAndRegisterService.h"
+#import "User_LocalData.h"
+#import "YBWeiChat.h"
+#import "YBTencent.h"
+#import "YBMessageCodeTextField.h"
+#import "YBServieceAgreementViewController.h"
+#import "AppDelegate.h"
+#import "ZJBaseNavigationController.h"
+#import "YBHelpCenterViewController.h"
+@interface YBLoginViewController ()<YBTencentLoginDelegate,YBWeChatManagerDelegate>
+
+@property(nonatomic,strong) YBLoginTopBigView * topBigView;
+@property(nonatomic,assign) loginTypeEnum  loginType;
+@property(nonatomic,assign) BOOL  isHiddenWeiXin;
+@property(nonatomic,strong) NSString * phoneStr;
+@property(nonatomic,strong) NSString * passWordStr;
+@property(nonatomic,strong) NSString * messageCodeStr;
+@property(nonatomic,strong) NSString * formVC;
+@property(nonatomic,assign) NSInteger  lastSelectTabbarItemIndex;
+/**
+ 第三方登录 openid
+ */
+@property(nonatomic,strong) NSString * openid;
+@property(nonatomic,strong) YBMessageCodeTextField * messageCodeTextfiled;
+@end
+
+@implementation YBLoginViewController
+
+#pragma mark - First.通知
+
+#pragma mark - Second.赋值
+/**
+ 只在 tabbar代理方法里使用这个方法
+ */
+- (void)formTabbarWith:(NSString *)formVC lastSelectTabbarItemIndex:(NSInteger)itemIndex
+{
+    self.formVC = formVC;
+    self.lastSelectTabbarItemIndex = itemIndex;
+}
+
+#pragma mark - Third.点击事件
+/**
+ 这个控制器的所有点击方法
+ tag:
+ 100       忘记密码
+ 101       登录
+ 102       帮助图标
+ 106       注册
+ 107       返回
+ */
+- (void)clickSubviewWithBtnTag:(NSInteger)tag
+{
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+    switch (tag) {
+            case 100:
+            
+            [self.navigationController pushViewController:[YBRegisterPhoneViewController creatRegisterPhoneViewControllerWithSourceType:forgetpasswordType
+                                                                                                                                 Extend:nil]
+                                                 animated:YES];
+            break;
+            case 101:
+        {
+            if (self.loginType == generalLoginType) [self loginGeneralTypeRequest];
+            else if (self.loginType == quickLoginType) [self loginQuickLoginTypeRequest];
+            else if (self.loginType == haveAcountLoginType) [self loginHaveAcountLoginTypeRequest];
+        }
+            break;
+            case 102:
+        {
+            YBHelpCenterViewController *helpceter = [[YBHelpCenterViewController alloc]init];
+            [self.navigationController pushViewController:helpceter animated:YES];
+        }
+            break;
+            case 106:
+            
+            [self.navigationController pushViewController:[YBRegisterPhoneViewController creatRegisterPhoneViewControllerWithSourceType:registerType
+                                                                                                                                 Extend:nil]
+                                                 animated:YES];
+            
+            break;
+            case 107:
+            
+            [self backHandle];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)clickboomViewBtn:(NSString *)btnstr
+{
+    if ([btnstr isEqualToString:@"切换账号"]) {
+        [self.navigationController pushViewController:[YBLoginViewController creatLoginViewControllerWithType:generalLoginType extend:nil] animated:YES];
+    }else if ([btnstr isEqualToString:@"账号"]){
+        /**
+         账号登录
+         */
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    }else if ([btnstr isEqualToString:@"微信"]){
+        [self thridPartyLogin:2];
+    }else if ([btnstr isEqualToString:@"QQ"]){
+        [self thridPartyLogin:1];
+    }else if ([btnstr isEqualToString:@"快捷登录"]){
+        [self.navigationController pushViewController:[YBLoginViewController creatLoginViewControllerWithType:quickLoginType
+                                                                                                       extend:nil] animated:YES];
+    }
+}
+
+/**
+ 对返回方法对处理
+ */
+- (void)backHandle
+{
+    if ([self.formVC isEqualToString:@"formTabbar"]) {
+        
+        if (![User_LocalData  getTokenId]) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+            self.tabBarController.selectedIndex = self.lastSelectTabbarItemIndex ? self.lastSelectTabbarItemIndex : 0 ;
+            
+            [SYSTEM_NOTIFICATIONCENTER postNotificationName:@"formefeedbookchangetabbarindex" object:nil userInfo:@{@"tabbarindex":@"0",
+                                                                                                                    @"ischangetabbar":@"YES"}];
+            self.formVC = nil;
+        }
+        return;
+    }else if ([_formVC isEqualToString:@"reSetPasswordVC"]) {
+        
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }else if ([_formVC isEqualToString:@"droppedaccount"]){
+        [SYSTEM_NOTIFICATIONCENTER postNotificationName:@"dismissDroplineViewController" object:nil];
+    }
+    
+    if (![User_LocalData  getTokenId]) {
+        //** 跳转到首页 */
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+        UITabBarController *tabBarController = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+        ZJBaseNavigationController *baseNavigationController = tabBarController.childViewControllers[0];
+        tabBarController.selectedIndex = 0;
+        [baseNavigationController popToRootViewControllerAnimated:YES];
+        return;
+    }
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+/**
+ 输入框的回调事件
+ */
+- (void)setTextFieldWhenEndEditingWithType:(textFieldType)type text:(NSString *)textStr
+{
+    if (type == phoneType) {
+        self.phoneStr           = textStr;
+    }else if (type == passWordType) {
+        self.passWordStr        = textStr;
+    }else if (type == messageCodeType) {
+        self.messageCodeStr     = textStr;
+    }
+}
+
+
+#pragma mark  *** 网络请求
+/**
+ 第三方登录
+ type 1 qq; 2 weixin
+ */
+- (void)thridPartyLogin:(NSInteger )type
+{
+    if (type == 1) {
+        [YBTencent share].YBTenceLoginDelegate = self;
+        [[YBTencent share] TencentLogin];
+    }else if (type == 2) {
+        
+        [YBWeiChat share].delegate = self;
+        [[YBWeiChat share] weiChatLogin];
+    }
+}
+
+/**
+ QQ登录
+ */
+- (void)QQLoginWithOpenid:(NSString *)openid token:(NSString *)token
+{
+    [[ZJLoginAndRegisterService share] qqLoginWithOpenid:openid
+                                                   token:token
+                                                prodBids:[[[User_LocalData alloc] init]
+                                                          getBrowseRecordGoodsId]
+                                                 display:nil
+                                                 success:^(id objc, id requestInfo) {
+                                                     @try {
+                                                         self.openid = objc[@"data"][@"openid"];
+                                                         if (self.openid) {
+                                                             [self thirdGotoCheckPhone:thridQQLoginType];
+                                                         }else{
+                                                             _phoneStr = nil;
+                                                             [self loginSuccessHandle:objc requestInfo:requestInfo];
+                                                         }
+                                                         
+                                                     } @catch (NSException *exception) {
+                                                         
+                                                     } @finally {
+                                                     }
+                                                 } fail:^(id error, id requestInfo) {
+                                                     
+                                                 }];
+}
+
+/**
+ 微信登录
+ */
+- (void)WeiChatLoginWithCode:(NSString *)code
+{
+    [[ZJLoginAndRegisterService share] weChatLoginWithCode:code
+                                                  prodBids:[[[User_LocalData alloc] init]
+                                                            getBrowseRecordGoodsId]
+                                                   success:^(id objc, id requestInfo) {
+                                                       @try {
+                                                           self.openid = objc[@"data"][@"openid"];
+                                                           if (self.openid) {
+                                                               [self thirdGotoCheckPhone:thridWXLoginType];
+                                                           }else{
+                                                               _phoneStr = nil;
+                                                               [self loginSuccessHandle:objc requestInfo:requestInfo];
+                                                           }
+                                                       } @catch (NSException *exception) {
+                                                           
+                                                       } @finally {
+                                                           
+                                                       }
+                                                       
+                                                   } fail:^(id error, id requestInfo) {
+                                                       
+                                                   }];
+}
+
+#pragma mark  *** 微信登录的代理
+- (void)managerDidRecvAuthResponse:(SendAuthResp *)response {
+    
+    if (response.errCode== -4) return;
+    else if (response.errCode == -2) return;
+    
+    [self WeiChatLoginWithCode:response.code];
+}
+
+#pragma mark  *** qq登录 代理
+/**
+ * 登录成功后的回调
+ */
+- (void)tencentDidLogin
+{
+    [self QQLoginWithOpenid:[[YBTencent share] getOpenId] token:[[YBTencent share] getToken]];
+}
+
+/**
+ * 登录失败后的回调
+ * \param cancelled 代表用户是否主动退出登录
+ */
+- (void)tencentDidNotLogin:(BOOL)cancelled
+{
+}
+
+/**
+ * 登录时网络有问题的回调
+ */
+- (void)tencentDidNotNetWork
+{
+}
+
+/**
+ 第三方登录 在未绑定手机号的情况下->校验手机号（包括已注册，未注册过的）
+ */
+- (void)thirdGotoCheckPhone:(sourceVcType)thridLogintype
+{
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    if (![_openid ex_isEmpty]) param[@"openid"] = _openid;
+    [self.navigationController pushViewController:[YBRegisterPhoneViewController creatRegisterPhoneViewControllerWithSourceType:thridLogintype
+                                                                                                                         Extend:param]
+                                         animated:YES];
+}
+
+
+/**
+ 快捷登录的时候 获取验证码
+ */
+- (void)questQuickLoginMessageCode
+{
+    if (!_phoneStr.length) {
+        [self.TopAlert showAlertWithTitleStringKey:ALERT_TITLE_ERROR_STRINGKEY
+                                     tipsStringKey:ALERT_TIPS_PHONE_EMPTY_STRINGKEY
+                                              type:YBTopAlertError
+                                eventCallBackBlock:^(id sender) {}];
+        return;
+    }
+    [[ZJLoginAndRegisterService share] quickLoginLoadMessageCodeWithPhone:_phoneStr
+                                                                  success:^(id objc, id requestInfo) {
+                                                                      [self.messageCodeTextfiled startCountDown];
+                                                                  } fail:^(id error, id requestInfo) {
+                                                                      
+                                                                  }];
+}
+
+/**
+ 保存有账号的登录请求
+ */
+- (void)loginHaveAcountLoginTypeRequest
+{
+    self.phoneStr = [User_LocalData getUserData].realphone;
+    [self loginGeneralTypeRequest];
+}
+
+/**
+ 快捷登录请求
+ */
+- (void)loginQuickLoginTypeRequest
+{
+    NSString *tips;
+    if (!_phoneStr.length) {
+        tips = ALERT_TIPS_PHONE_EMPTY_STRINGKEY;
+        [self.TopAlert showAlertWithTitleStringKey:ALERT_TITLE_ERROR_STRINGKEY tipsStringKey:tips type:YBTopAlertError eventCallBackBlock:^(id sender) {}];
+        return ;
+    }
+    if (!_messageCodeStr.length) {
+        tips = ALERT_TIPS_VERCODE_EMPTY_STRINGKEY;
+        [self.TopAlert showAlertWithTitleStringKey:ALERT_TITLE_ERROR_STRINGKEY tipsStringKey:tips type:YBTopAlertError eventCallBackBlock:^(id sender) {}];
+        return ;
+    }
+    
+    [[ZJLoginAndRegisterService share] quickLoginWithPhone:_phoneStr
+                                                   smsCode:_messageCodeStr
+                                                  prodBids:[[[User_LocalData alloc] init]
+                                                            getBrowseRecordGoodsId]
+                                                   success:^(id objc, id requestInfo) {
+                                                       
+                                                       [self loginSuccessHandle:objc requestInfo:requestInfo];
+                                                   } fail:^(id error, id requestInfo) {
+                                                       
+                                                   }];
+}
+
+/**
+ 普通的登录请求
+ */
+- (void)loginGeneralTypeRequest
+{
+    NSString *tips;
+    if (!_phoneStr.length) {
+        tips = ALERT_TIPS_PHONE_EMPTY_STRINGKEY;
+        [self.TopAlert showAlertWithTitleStringKey:ALERT_TITLE_ERROR_STRINGKEY tipsStringKey:tips type:YBTopAlertError eventCallBackBlock:^(id sender) {}];
+        return ;
+    }
+    
+    if (!_passWordStr.length) {
+        tips = ALERT_TIPS_PWD_EMPTY_STRINGKEY;
+        [self.TopAlert showAlertWithTitleStringKey:ALERT_TITLE_ERROR_STRINGKEY tipsStringKey:tips type:YBTopAlertError eventCallBackBlock:^(id sender) {}];
+        return ;
+    }
+    
+    [[ZJLoginAndRegisterService share] loginWithPhone:_phoneStr
+                                             password:_passWordStr
+                                             prodBids:[[[User_LocalData alloc] init]
+                                                       getBrowseRecordGoodsId]
+                                              success:^(id objc, id requestInfo) {
+                                                  
+                                                  [self loginSuccessHandle:objc requestInfo:requestInfo];
+                                              } fail:^(id error, id requestInfo) {
+                                                  
+                                              }];
+}
+
+/**
+ 登录成功后的 处理
+ */
+- (void)loginSuccessHandle:(id)objc requestInfo:(id)requestInfo
+{
+
+    if (_phoneStr) {
+        [SYSTEM_USERDEFAULTS setObject:_phoneStr forKey:@"realphone"];
+    }else{
+        [SYSTEM_USERDEFAULTS removeObjectForKey:@"realphone"];
+    }
+    
+    /**
+     *  保存用户信息
+     */
+    [User_LocalData setUserDataWith:objc[@"data"]];
+    
+    /**
+     *  保存token
+     */
+    ZJProjectNetRequestInfo *requestInfoModel = (ZJProjectNetRequestInfo *)requestInfo;
+    @try {
+        [User_LocalData setTokenId:requestInfoModel.responseObject[@"token"]];
+    } @catch (NSException *exception) {
+        
+    } @finally {
+        
+    }
+    /**
+     掉线后 再次登录后隐藏tabbar
+     */
+    if ([_formVC isEqualToString:@"droppedaccount"]) {
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+        if (self.againloginsecusshiddentabbarblock) {
+            self.againloginsecusshiddentabbarblock();
+        }
+        return;
+    }
+    /**
+     切换tabbarindex 登录
+     */
+    if ([_formVC isEqualToString:@"formTabbar"]) {
+        if (self.PushMeMainBlock) {
+            self.PushMeMainBlock();
+        }
+        [self dismissViewControllerAnimated:YES completion:nil];
+        return;
+    }
+    
+    if (_loginType == generalLoginType
+        || _loginType == quickLoginType) {
+   
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        [SYSTEM_NOTIFICATIONCENTER postNotificationName:@"dismissquicklLoginvc" object:nil];
+        return;
+    }
+ 
+
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    @try {
+        /**
+         保存二进制的头像
+         */
+        NSString *headerstr = objc[@"data"][@"headImage"];
+        if (![headerstr isEqualToString:@"default"] && headerstr.length != 0){
+            UIImageView *tempimageview = [[UIImageView alloc]init];
+            [tempimageview sd_setImageWithURL:[NSURL URLWithString:headerstr]];
+            NSData *headerdata = UIImagePNGRepresentation(tempimageview.image);
+            [SYSTEM_USERDEFAULTS setObject:headerdata forKey:@"headerimagedata"];
+        }
+    } @catch (NSException *exception) {
+        
+    } @finally {
+        
+    }
+
+}
+
+/**
+ 移动
+ */
+- (void)moveViewcontroller:(textFieldType)filedtype textfiled:(UITextField *)textfiled
+{
+//    if (_loginType == generalLoginType) {
+//    
+//        [UIView animateWithDuration:0.25 animations:^{
+//            
+//        }];
+//    }else if (_loginType == quickLoginType){
+//        [UIView animateWithDuration:0.25 animations:^{
+//            
+//        }];
+//    }
+}
+
+#pragma mark - Fourth.代理方法
+
+#pragma mark - Fifth.控制器生命周期
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self setCutomUI];
+    [self setNaviItem];
+    
+    [_topBigView textFieldbeginEditingCallBackBlock:^(textFieldType type,UITextField *textfiled) {
+        if (type == messageCodeType) {
+            self.messageCodeTextfiled =  self.topBigView.messageCodeTextField;
+        }
+//        [self moveViewcontroller:type textfiled:textfiled];
+        
+    } EndEditingCallBackBlock:^(textFieldType type, NSString *textStr) {
+        [self setTextFieldWhenEndEditingWithType:type text:textStr];
+        
+    } requestMessageCodeBlock:^{
+        [self questQuickLoginMessageCode];
+    }];
+    
+}
+
+- (void)viewDidLoad {
+    
+    [super viewDidLoad];
+    self.view.backgroundColor = ZJCOLOR.color_c12;
+    
+    /**
+     快捷登录界面->密码账号登录
+     */
+    [SYSTEM_NOTIFICATIONCENTER addObserver:self selector:@selector(pushtogeneralLoginvc) name:@"pushtogeneralLoginvc" object:nil];
+    /**
+     快捷登录成功后，
+     */
+    [SYSTEM_NOTIFICATIONCENTER addObserver:self selector:@selector(dismissquicklLoginvc) name:@"dismissquicklLoginvc" object:nil];
+    
+    /**
+     注册，第三方绑定登录成功后
+     */
+    [SYSTEM_NOTIFICATIONCENTER addObserver:self selector:@selector(dismissloginwithregisterorthridloginsuccessnoti:) name:@"registerorthridloginsuccessnoti" object:nil];
+}
+
+- (void)dismissloginwithregisterorthridloginsuccessnoti:(NSNotification *)noti
+{
+    if ([_formVC isEqualToString:@"formTabbar"]) {
+        if (self.PushMeMainBlock) {
+            self.PushMeMainBlock();
+        }
+        [self dismissViewControllerAnimated:NO completion:nil];
+        return;
+    }
+    
+    [self dismissViewControllerAnimated:NO completion:nil];
+}
+
+- (void)dismissquicklLoginvc
+{
+    if ([_formVC isEqualToString:@"formTabbar"]) {
+        if (self.PushMeMainBlock) {
+            self.PushMeMainBlock();
+        }
+        [self dismissViewControllerAnimated:NO completion:nil];
+        return;
+    }
+    [self dismissViewControllerAnimated:NO completion:nil];
+}
+
+- (void)pushtogeneralLoginvc
+{
+    _loginType = generalLoginType;
+}
+
+/**
+ 初始化控制器
+ */
++ (instancetype)creatLoginViewControllerWithType:(loginTypeEnum)Type
+                                          extend:(id)extend
+{
+    YBLoginViewController *controller       = [[YBLoginViewController alloc]init];
+    controller.formVC                       = [extend[@"formVC"] ex_isEmpty] ? @"" : extend[@"formVC"];
+    controller.loginType                    = Type;
+    return controller;
+}
+
+#pragma mark - Sixth.界面配置
+- (void)setCutomUI
+{
+    [self.view addSubview:self.topBigView];
+    self.topBigView.updateloginType = _loginType;
+    
+    [self.topBigView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.mas_equalTo(self.view).mas_offset(ADJUST_PERCENT_FLOAT(0));
+    }];
+  
+}
+
+/**
+ 注册
+ */
+- (void)setNaviItem{
+    
+    ZJBaseBarButtonItem *rightItem = [ZJBaseBarButtonItem barButtonItemWithTitleStringKey:ZJSTRING(LOGIN_BUTTON_REGISTER_STRINGKEY)
+                                                                                 callBack:^(id sender) {
+                                                                                     [self clickSubviewWithBtnTag:106];
+                                                                                 }];
+    self.navigationItem.rightBarButtonItem = rightItem;
+    
+    UIButton *leftbtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
+    [leftbtn setImage:[UIImage imageNamed:@"public_back_n"] forState:UIControlStateNormal];
+    [leftbtn setImage:[UIImage imageNamed:@"public_back_h"] forState:UIControlStateSelected];
+    leftbtn.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
+    [leftbtn addTarget:self action:@selector(clcikbackbtn) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftitem = [[UIBarButtonItem alloc]initWithCustomView:leftbtn];
+    self.navigationItem.leftBarButtonItem = leftitem;
+}
+- (void)clcikbackbtn
+{
+    [self clickSubviewWithBtnTag:107];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+}
+
+#pragma mark - Seventh.懒加载
+- (YBLoginTopBigView *)topBigView {
+    if (!_topBigView) {
+        WEAKSELF(self)
+        _topBigView = [YBLoginTopBigView creatLoginTopViewWithType:_loginType
+                                                      isShowWXicon:[[YBWeiChat share] isInstallWeiChat]
+                                                  clickTopBtnBlock:^(NSInteger BtnType) {
+            [weakself clickSubviewWithBtnTag:BtnType];
+        } clickBoomBtnBlock:^(NSString *btnstr) {
+            [self clickboomViewBtn:btnstr];
+        }];
+    };
+    return _topBigView;
+}
+
+@end
+
+

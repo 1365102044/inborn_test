@@ -1,0 +1,377 @@
+//
+//  YBChangeLoginPwViewController.m
+//  inborn
+//
+//  Created by 刘文强 on 2017/3/30.
+//  Copyright © 2017年 inborn. All rights reserved.
+//
+
+#import "YBChangeLoginPwViewController.h"
+#import "YBTopAlert.h"
+#import "ZJMineService.h"
+#import "YBAttributedStringLabel.h"
+#import "YXPerfectAccountInformationViewController.h"
+
+@interface YBChangeLoginPwViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+@property(nonatomic,strong) UITableView * tableview;
+@property(nonatomic,strong) UITextField * oldTextfield;
+@property(nonatomic,strong) UITextField * newpTextfield;
+@property(nonatomic,strong) NSArray * titleArr;
+@property(nonatomic,strong) UIButton * commitBtn;
+@property(nonatomic,strong) UITextField * confirmfiled;
+@property(nonatomic,assign) CureentVcType  currentType;
+
+@property(nonatomic,strong) NSString * oldpwstr;
+@property(nonatomic,strong) UIView * oldbackView;
+@property(nonatomic,strong) UIView * newbaclView;
+@property(nonatomic,strong) UIView * confirmbaclView;
+@property(nonatomic,strong) UIButton * clearBtn1;
+@property(nonatomic,strong) UIButton * clearBtn2;
+@property(nonatomic,strong) UIButton * clearBtn3;
+
+@end
+
+@implementation YBChangeLoginPwViewController
+
+#pragma mark - First.通知
+
+#pragma mark - Second.赋值
+
+#pragma mark - Third.点击事件
+- (void)clickcommit:(UIButton *)sender
+{
+     if (self.oldTextfield.text.length <= 0 || self.newpTextfield.text.length <= 0 || self.confirmfiled.text.length <= 0) {
+         return;
+     }
+    if (![self.oldTextfield.text ex_isPassword]) {
+        [[YBTopAlert sharedAlert] showAlertWithTitleStringKey:ALERT_TITLE_ERROR_STRINGKEY tipsStringKey:ZJSTRING(@"旧密码格式不正确") type:YBTopAlertError eventCallBackBlock:^(id sender) {
+        }];
+        return;
+    }
+    if (![self.newpTextfield.text ex_isPassword]) {
+        [[YBTopAlert sharedAlert] showAlertWithTitleStringKey:ALERT_TITLE_ERROR_STRINGKEY tipsStringKey:ZJSTRING(@"新密码格式不正确") type:YBTopAlertError eventCallBackBlock:^(id sender) {
+        }];
+        return;
+    }
+    if (![self.confirmfiled.text isEqualToString:self.newpTextfield.text]) {
+        [[YBTopAlert sharedAlert] showAlertWithTitleStringKey:ALERT_TITLE_ERROR_STRINGKEY tipsStringKey:ZJSTRING(@"新密码和确认密码不一致") type:YBTopAlertError eventCallBackBlock:^(id sender) {
+        }];
+        return;
+    }
+    if (self.currentType == changeLoginPW) {
+        
+        [[ZJMineService share] changeLoginPassWordInfoWitholdPwd:self.oldTextfield.text
+                                                          newPwd:self.newpTextfield.text
+                                                         Success:^(id objc, id requestInfo) {
+                                                             [self.navigationController popViewControllerAnimated:YES];
+                                                         } fail:^(id error, id requestInfo) {
+                                                             
+                                                         }];
+    }else if (self.currentType == changePayPW){
+        
+        YXPerfectAccountInformationViewController *perfectVC = [[YXPerfectAccountInformationViewController alloc]init];
+        perfectVC.passwordStr = [self.confirmfiled.text ex_sha1String];
+        [self.navigationController pushViewController:perfectVC animated:YES];
+
+    }
+}
+
+#pragma mark - Fourth.代理方法
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 3;
+}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    if (!cell) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+    }else{
+        while ([cell.contentView.subviews lastObject] != nil)
+        {
+            [(UIView *)[cell.contentView.subviews lastObject] removeFromSuperview];
+        }
+    }
+    UIView *cellview = [self creatcellsubview:indexPath];
+    cellview.frame = CGRectMake(0, 0, SCREEN_WIDTH, 46);
+    [cell.contentView addSubview:cellview];
+    cell.backgroundColor = [UIColor whiteColor];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 10;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *seactionview = [[UIView alloc]init];
+    
+    NSString *desc = @"支持8～20个字符，至少包括字母、数字和符号中的两种及以上的组合，要牢记密码哦";
+    YBAttributedStringLabel *desclable = [YBAttributedStringLabel labelWithFont:SYSTEM_REGULARFONT(12)
+                                                                           text:ZJSTRING(desc)
+                                                                      textColor:ZJCOLOR.color_c5];
+    desclable.numberOfLines = 2;
+    [desclable setAttributedStringWithContentArray:@[@{@"color":ZJCOLOR.color_c5,
+                                                       @"content":desc,
+                                                       @"size":SYSTEM_REGULARFONT(12),
+                                                       @"lineSpacing":@"5"}]];
+    desclable.backgroundColor = ZJCOLOR.color_c12;
+    [seactionview addSubview:desclable];
+    
+    [desclable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(seactionview.mas_top);
+        make.left.mas_equalTo(seactionview.mas_left).mas_offset(ADJUST_PERCENT_FLOAT(12));
+        make.right.mas_equalTo(seactionview.mas_right).mas_offset(ADJUST_PERCENT_FLOAT(-12));
+        make.height.mas_offset(ADJUST_PERCENT_FLOAT(50));
+    }];
+    return seactionview;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return ADJUST_PERCENT_FLOAT(60);
+}
+- (UIView *)creatcellsubview:(NSIndexPath *)indexpath{
+    UIView *view = [[UIView alloc]init];
+    YBDefaultLabel *leftlable = [YBDefaultLabel labelWithFont:SYSTEM_REGULARFONT(14) text:self.titleArr[indexpath.row] textColor:ZJCOLOR.color_c4];
+    [view addSubview:leftlable];
+    
+    UIButton *clearBtn = [[UIButton alloc]init];
+    [clearBtn setImage:[UIImage imageNamed:@"changeinfor_close_n"] forState:UIControlStateNormal];
+    [clearBtn addTarget:self action:@selector(cleartextfileBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:clearBtn];
+    clearBtn.tag = indexpath.row + 1;
+    clearBtn.hidden = YES;
+    [clearBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_offset(CGSizeMake(ADJUST_PERCENT_FLOAT(22), ADJUST_PERCENT_FLOAT(22)));
+        make.centerY.mas_equalTo(view.mas_centerY);
+        make.right.mas_equalTo(view.mas_right).mas_offset(- ADJUST_PERCENT_FLOAT(12));
+    }];
+    
+    
+    UITextField *righttextfled = [[UITextField alloc]init];
+    righttextfled.font = SYSTEM_REGULARFONT(14);
+    righttextfled.delegate = self;
+    [view addSubview:righttextfled];
+    righttextfled.textAlignment= NSTextAlignmentRight;
+    righttextfled.secureTextEntry = YES;
+    righttextfled.textColor = ZJCOLOR.color_c4;
+    
+    //    righttextfled.clearButtonMode = UITextFieldViewModeWhileEditing;
+    
+    
+    UIView *line = [[UIView alloc]init];
+    line.backgroundColor = ZJCOLOR.color_c16;
+    [view addSubview:line];
+    
+    [leftlable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(view).mas_offset(ADJUST_PERCENT_FLOAT(12));
+        make.height.mas_equalTo(view);
+        make.width.mas_offset(ADJUST_PERCENT_FLOAT(100));
+        make.centerY.mas_equalTo(view);
+    }];
+    
+    [righttextfled mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(view.mas_right).mas_offset(ADJUST_PERCENT_FLOAT(-12));
+        make.height.mas_equalTo(view);
+        make.left.mas_equalTo(leftlable.mas_right).mas_offset(ADJUST_PERCENT_FLOAT(12));
+        make.centerY.mas_equalTo(view);
+    }];
+    if (indexpath.row ==0) {
+        righttextfled.placeholder = @"请输入旧密码";
+        self.oldTextfield = righttextfled;
+        self.clearBtn1 = clearBtn;
+        self.oldbackView = view;
+        [line mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(view).mas_offset(ADJUST_PERCENT_FLOAT(12));
+            make.right.bottom.mas_equalTo(view).mas_offset(ADJUST_PERCENT_FLOAT(0));
+            make.height.mas_offset(ADJUST_PERCENT_FLOAT(0.5));
+        }];
+    }else if (indexpath.row ==1){
+        if (self.currentType == changeLoginPW) {
+        righttextfled.placeholder = @"请输入8~20位登录密码";
+        }else if (self.currentType == changePayPW){
+        righttextfled.placeholder = @"请输入8~20位支付密码";
+        }
+        self.newpTextfield = righttextfled;
+        self.clearBtn2 = clearBtn;
+        self.newbaclView = view;
+        [line mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(view).mas_offset(ADJUST_PERCENT_FLOAT(12));
+            make.right.bottom.mas_equalTo(view).mas_offset(ADJUST_PERCENT_FLOAT(0));
+            make.height.mas_offset(ADJUST_PERCENT_FLOAT(0.5));
+        }];
+    }else if (indexpath.row == 2){
+        
+        if (self.currentType == changeLoginPW) {
+            righttextfled.placeholder = @"请输入确认登录密码";
+        }else if (self.currentType == changePayPW){
+            righttextfled.placeholder = @"请输入确认支付密码";
+        }
+
+        self.confirmfiled = righttextfled;
+        self.confirmbaclView = view;
+        self.clearBtn3 = clearBtn;
+    }
+    return view;
+}
+
+- (void)cleartextfileBtn:(UIButton *)sender{
+    
+    if (sender.tag == 1) {
+        self.oldTextfield.text = nil;
+        self.clearBtn1.hidden = YES;
+        [self.oldTextfield mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.right.mas_equalTo(self.oldbackView.mas_right).mas_offset(-ADJUST_PERCENT_FLOAT(12));
+        }];
+    }else if (sender.tag == 2){
+        self.newpTextfield.text = nil;
+        [self.newpTextfield mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.right.mas_equalTo(self.newbaclView.mas_right).mas_offset(-ADJUST_PERCENT_FLOAT(12));
+        }];
+        self.clearBtn2.hidden = YES;
+    }else if (sender.tag == 3){
+        self.confirmfiled.text = nil;
+        self.clearBtn3.hidden = YES;
+        [self.confirmfiled mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.right.mas_equalTo(self.confirmbaclView.mas_right).mas_offset(-ADJUST_PERCENT_FLOAT(12));
+        }];
+    }
+    
+}
+
+-(void)textfiledEditChanged:(NSNotification *)notification{
+    
+    // 拿到文本改变的 text field
+    UITextField *textField = (UITextField *)notification.object;
+    
+    if (textField == self.oldTextfield) {
+        [self.oldTextfield limitTextFiledEditLimitNumber:20];
+        
+        CGFloat rig = ADJUST_PERCENT_FLOAT(12);
+        self.clearBtn1.hidden = YES;
+        if (self.oldTextfield.text.length > 0) {
+            rig = ADJUST_PERCENT_FLOAT(34);
+            self.clearBtn1.hidden = NO;
+        }
+        [self.oldTextfield mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.right.mas_equalTo(self.oldbackView.mas_right).mas_offset(-rig);
+        }];
+    }
+    if (textField == self.newpTextfield) {
+        [self.newpTextfield limitTextFiledEditLimitNumber:20];
+        
+        CGFloat rig = ADJUST_PERCENT_FLOAT(12);
+        self.clearBtn2.hidden = YES;
+        if (self.newpTextfield.text.length > 0) {
+            rig = ADJUST_PERCENT_FLOAT(34);
+            self.clearBtn2.hidden = NO;
+        }
+        [self.newpTextfield mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.right.mas_equalTo(self.newbaclView.mas_right).mas_offset(-rig);
+        }];
+    }
+    if (textField == self.confirmfiled) {
+        [self.confirmfiled limitTextFiledEditLimitNumber:20];
+        
+        CGFloat rig = ADJUST_PERCENT_FLOAT(12);
+        self.clearBtn3.hidden = YES;
+        if (self.confirmfiled.text.length > 0) {
+        self.clearBtn3.hidden = NO;
+            rig = ADJUST_PERCENT_FLOAT(34);
+        }
+        [self.confirmfiled mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.right.mas_equalTo(self.confirmbaclView.mas_right).mas_offset(-rig);
+        }];
+    }
+    if (self.oldTextfield.text.length> 0 && self.newpTextfield.text.length > 0 && self.confirmfiled.text.length > 0) {
+        self.commitBtn.backgroundColor = ZJCOLOR.color_c6;
+    }else{
+        self.commitBtn.backgroundColor = ZJCOLOR.color_c5;
+        
+    }
+    YBLog(@"------%@----%@---%@--",self.oldTextfield.text,self.newpTextfield.text,self.confirmfiled.text);
+}
+
+- (UIView *)creatfooterview
+{
+    UIView *footerview = [[UIView alloc]init];
+    footerview.backgroundColor = ZJCOLOR.color_c12;
+    
+    self.commitBtn =[[UIButton alloc]init];
+    self.commitBtn.backgroundColor = ZJCOLOR.color_c5;
+    self.commitBtn.titleLabel.font = SYSTEM_REGULARFONT(14);
+    [self.commitBtn setTitle:@"下一步" forState:UIControlStateNormal];
+    [self.commitBtn setTitleColor:ZJCOLOR.color_c0 forState:UIControlStateNormal];
+    [footerview addSubview:self.commitBtn];
+    self.commitBtn.layer.cornerRadius = 3;
+    self.commitBtn.layer.masksToBounds = YES;
+    [self.commitBtn addTarget:self action:@selector(clickcommit:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.commitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(footerview.mas_left).mas_offset(ADJUST_PERCENT_FLOAT(12));
+        make.right.mas_equalTo(footerview.mas_right).mas_offset(ADJUST_PERCENT_FLOAT(-12));
+        make.height.mas_offset(ADJUST_PERCENT_FLOAT(44));
+        make.top.mas_equalTo(footerview).mas_offset(ADJUST_PERCENT_FLOAT(10));
+        make.centerX.mas_equalTo(footerview.mas_centerX);
+    }];
+    
+    return footerview;
+}
+
+#pragma mark - Fifth.控制器生命周期
+
++ (instancetype) creatChangeLoginPwOrPayPwWithCurrentVcType:(CureentVcType)CurrentVcType
+                                                     extend:(id)extend
+{
+    YBChangeLoginPwViewController *vc = [[YBChangeLoginPwViewController alloc]init];
+    vc.currentType = CurrentVcType;
+    return vc;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    if (self.currentType == changeLoginPW) {
+        self.title = @"修改登录密码";
+    }else if (self.currentType == changePayPW){
+        self.title = @"修改支付密码";
+    }
+    
+    self.titleArr = @[@"旧密码",@"新密码",@"确认新密码"];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textfiledEditChanged:) name:UITextFieldTextDidChangeNotification object:nil];
+    [self.view addSubview:self.tableview];
+    
+    UIView *footer = [self creatfooterview];
+    footer.frame = CGRectMake(0, 0, SCREEN_WIDTH, 60);
+    self.tableview.tableFooterView = footer;
+}
+
+#pragma mark - Sixth.界面配置
+
+#pragma mark - Seventh.懒加载
+
+/**
+ 懒加载
+ */
+-(UITableView *)tableview{
+    
+    if (!_tableview) {
+        _tableview = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        _tableview.delegate = self;
+        _tableview.dataSource = self;
+        _tableview.rowHeight = ADJUST_PERCENT_FLOAT(46);
+        _tableview.tableFooterView = [[UIView alloc]init];
+        _tableview.backgroundColor = ZJCOLOR.color_c12;
+        _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+    }
+    return _tableview;
+}
+
+@end

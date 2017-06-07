@@ -1,0 +1,295 @@
+//
+//  ZJBaseService.m
+//  Project
+//
+//  Created by 郑键 on 17/2/15.
+//  Copyright © 2017年 zhengjian. All rights reserved.
+//
+
+#import "ZJBaseService.h"
+#import "YBTopAlert.h"
+#import "User_LocalData.h"
+#import "YBLoginViewController.h"
+#import "ZJBaseNavigationController.h"
+#import "YXOffLineNotificationController.h"
+#import "YBGoodsDeatilNaviMoreView.h"
+
+@interface ZJBaseService ()
+
+/**
+ 下线提示
+ */
+@property (nonatomic, weak) YXOffLineNotificationController *offLineNotificationController;
+
+@end
+
+@implementation ZJBaseService
+
++ (instancetype)share{
+    static dispatch_once_t t;
+    static ZJBaseService *service       = nil;
+    dispatch_once(&t, ^{
+        service                         = [[ZJBaseService alloc] init];
+    });
+    return service;
+}
+
+/**
+ *  请求数据成功的处理
+ *
+ *  @param dictionary                   请求回来的数据
+ *  @param requestInfoModel             请求task
+ *  @param sucBlock                     如果一切正常则会执行该block
+ *  @param failBlock                    出现其它错误时执行(例如:请求虽然成功,但出现必填参数为空)
+ */
+- (void)handleRequestSuccess:(NSDictionary *)dictionary
+                requestModel:(ZJProjectNetRequestInfo *)requestInfoModel
+                    sucBlock:(ZJNetRequestSuccessBlock)sucBlock
+                   failBlock:(ZJNetRequestFailureBlock)failBlock
+{
+    
+    /**
+     *  如果状态为6，抛出登录失效异常，并清除token
+     */
+    NSString *status = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"status"]];
+    if ([status isEqualToString:@"6"]) {
+        
+        if (failBlock) {
+            
+            [User_LocalData delUserData];
+            
+            /**
+             *  TODO:初始化错误信息，失败回调
+             */
+            ZJNetRequestError *error                          = [self errorWithErrorInfo:dictionary[@"errorMsg"]
+                                                                                  domain:@"登录状态异常，token失效"
+                                                                                    code:-4];
+
+//            UITabBarController *tabBarController                = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+//            YBLoginViewController *loginViewController          = [YBLoginViewController creatLoginViewControllerWithType:generalLoginType extend:@{@"formVC":@"droppedaccount"}];
+//            ZJBaseNavigationController *navigtionController     = [[ZJBaseNavigationController alloc] initWithRootViewController:loginViewController];
+//            loginViewController.againloginsecusshiddentabbarblock = ^(){
+//                tabBarController.tabBar.hidden = YES;
+//            };
+//            loginViewController.modalTransitionStyle            = UIModalTransitionStyleCrossDissolve;
+//        
+//            [tabBarController presentViewController:navigtionController animated:YES completion:^{
+//                
+//            }];
+            
+//            [[YBTopAlert sharedAlert] showAlertWithTitleStringKey:ALERT_TITLE_ERROR_STRINGKEY
+//                                                    tipsStringKey:ZJSTRING(@"登录状态异常，请重新登录或联系客服")
+//                                                             type:YBTopAlertError
+//                                               eventCallBackBlock:^(id sender) {
+//                                                   
+//                                               }];
+//            
+//            UITabBarController *tabBarController                = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+//            YBLoginViewController *loginViewController          = [YBLoginViewController creatLoginViewControllerWithType:generalLoginType extend:nil];
+//            ZJBaseNavigationController *navigtionController     = [[ZJBaseNavigationController alloc] initWithRootViewController:loginViewController];
+//            loginViewController.modalTransitionStyle            = UIModalTransitionStyleCrossDissolve;
+//            [tabBarController presentViewController:navigtionController animated:YES completion:^{
+//                
+//            }];
+            
+            [self ShowOutLoginView:6];
+            
+            failBlock (error,requestInfoModel);
+        }
+        return;
+    }
+    
+    /**
+     *  如果状态为3，表示未登录状态
+     */
+    if ([status isEqualToString:@"3"]) {
+        
+        if (failBlock) {
+            
+            [User_LocalData delUserData];
+            
+            /**
+             *  TODO:初始化错误信息，失败回调
+             */
+            ZJNetRequestError *error                          = [self errorWithErrorInfo:dictionary[@"errorMsg"]
+                                                                                  domain:@"未登录"
+                                                                                    code:-5];
+            
+            UITabBarController *tabBarController                = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+            YBLoginViewController *loginViewController          = [YBLoginViewController creatLoginViewControllerWithType:generalLoginType extend:@{@"formVC":@"droppedaccount"}];
+            ZJBaseNavigationController *navigtionController     = [[ZJBaseNavigationController alloc] initWithRootViewController:loginViewController];
+            loginViewController.modalTransitionStyle            = UIModalTransitionStyleCrossDissolve;
+            [tabBarController presentViewController:navigtionController animated:YES completion:^{
+                
+            }];
+            failBlock (error,requestInfoModel);
+        }
+        return;
+    }
+    
+    /**
+     *  请求成功，返回的数据判断，当返回数据为空或者无数据时，抛出无数据异常，根据
+     */
+//    if (!dictionary || [[dictionary allKeys] count] ==0 ) {
+//        if (failBlock) {
+//            
+//            /**
+//             *  TODO：添加统计锚点
+//             */
+//            
+//            /**
+//             *  初始化状态码，失败回调
+//             */
+//            ZJNetRequestError *error                              = [self errorWithErrorInfo:dictionary[@"errorMsg"] ? dictionary[@"errorMsg"] : @"无错误信息"
+//                                                                                      domain:@"返回数据为空"
+//                                                                                        code:-1];
+//            [[YBTopAlert sharedAlert] showAlertWithTitleStringKey:ALERT_TITLE_ERROR_STRINGKEY
+//                                                    tipsStringKey:ZJSTRING(@"返回数据为空")
+//                                                             type:YBTopAlertError
+//                                               eventCallBackBlock:^(id sender) {
+//                                                   
+//                                               }];
+//            failBlock (error, requestInfoModel);
+//        }
+//        return;
+//    }
+    
+    /**
+     *  TODO:获取与后台约定状态码，通过状态码判断是否请求成功
+     *  当前status为服务器返回的JSON对象中
+     *  需根据服务器具体情况来确定从哪里获取status
+     */
+    if ([status isEqualToString:@"1"]) {
+        if (dictionary) {
+            if (sucBlock){
+                sucBlock (dictionary,requestInfoModel);
+            }
+        }else{
+            if (failBlock) {
+                
+                /**
+                 *  TODO:初始化错误信息，失败回调
+                 */
+                ZJNetRequestError *error                          = [self errorWithErrorInfo:dictionary[@"errorMsg"]
+                                                                                      domain:@"请求返回状态成功，但数据为空"
+                                                                                        code:-2];
+                [[YBTopAlert sharedAlert] showAlertWithTitleStringKey:ALERT_TITLE_ERROR_STRINGKEY
+                                                        tipsStringKey:ZJSTRING(@"请求返回状态成功，但数据为空")
+                                                                 type:YBTopAlertError
+                                                   eventCallBackBlock:^(id sender) {
+                                                       
+                                                   }];
+                failBlock (error,requestInfoModel);
+            }
+        }
+        return;
+    }
+    
+    /**
+     *  TODO:其他异常，根据服务器情况来写判断条件
+     *  从服务器获取错误信息
+     */
+    if (dictionary && ([dictionary objectForKey:@"status"]
+                       || [dictionary objectForKey:@"msg"])) {
+        if (failBlock) {
+            
+            /**
+             *  TODO:初始化错误信息，失败回调
+             */
+            ZJNetRequestError *error                              = [self errorWithErrorInfo:dictionary[@"errorMsg"] ? dictionary[@"errorMsg"] : [NSString stringWithFormat:@"返回数据异常%@", dictionary]
+                                                                                      domain:@"请求返回状态不成功"
+                                                                                        code:-3];
+            [[YBTopAlert sharedAlert] showAlertWithTitleStringKey:ALERT_TITLE_ERROR_STRINGKEY
+                                                    tipsStringKey:ZJSTRING(dictionary[@"errorMsg"])
+                                                             type:YBTopAlertError
+                                               eventCallBackBlock:^(id sender) {
+                                                   
+                                               }];
+            [[YBGoodsDeatilNaviMoreView share] dismiss];
+            failBlock (error,requestInfoModel);
+            return;
+        }
+    }
+    return;
+    
+}
+
+/**
+ *  请求数据失败后的处理
+ *
+ *  @param error     请求失败后返回Error对象
+ */
+- (void)handleRequestFailed:(NSError *)error
+               requestModel:(ZJProjectNetRequestInfo *)requestInfoModel
+                  failBlock:(ZJNetRequestFailureBlock)failBlock
+{
+    if (failBlock) {
+        
+        /**
+         *  判断网络状态，当网络状态为无网络时，抛出异常
+         */
+        YBLog(@"%zd", [ZJProjectNetRequestManager sharedNetRequestManager].currentNetStatus);
+        
+        /**
+         *  TODO:判断当为用户手动取消时，不抛出异常
+         */
+        
+        NSError *customError = [NSError errorWithDomain:error.domain code:error.code userInfo:@{@"userInfo":error.userInfo ? error.userInfo : @"无报错信息"}];
+        
+        /**
+         *  TODO:根据状态码来初始化不同的异常
+         */
+        failBlock (customError,requestInfoModel);
+    }
+    
+}
+
+/**
+ *  初始化error的方法封装
+ *
+ *  @param errorInfo                错误信息
+ *  @param domain                   描述
+ *  @param code                     错误状态吗
+ *  @return                         error对象
+ */
+- (ZJNetRequestError *)errorWithErrorInfo:(NSString *)errorInfo
+                                   domain:(NSString *)domain
+                                     code:(NSInteger)code
+{
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errorInfo
+                                                         forKey:NETREQUEST_ERRORINFO_KEY];
+    ZJNetRequestError *resultError = [[ZJNetRequestError alloc] initWithDomain:domain
+                                                                          code:code
+                                                                      userInfo:userInfo];
+    return resultError;
+}
+
+-(void)ShowOutLoginView:(NSInteger)OutLoginStatus
+{
+    /**
+     清除Token
+     */
+    [User_LocalData delUserData];
+    /**
+     情况本地
+     */
+    [SYSTEM_USERDEFAULTS removeObjectForKey:@"realphone"];
+    
+    //** 添加异常登录视图 */
+    [[UIApplication sharedApplication].keyWindow addSubview: self.offLineNotificationController.view];
+    self.offLineNotificationController.view.hidden = NO;
+    self.offLineNotificationController.LoginStatus = OutLoginStatus;
+    
+}
+
+- (YXOffLineNotificationController *)offLineNotificationController
+{
+    if (!_offLineNotificationController) {
+        YXOffLineNotificationController *controller = [[YXOffLineNotificationController alloc] init];
+        _offLineNotificationController = controller;
+        _offLineNotificationController.view.frame = [UIScreen mainScreen].bounds;
+        
+    }
+    return _offLineNotificationController;
+}
+@end

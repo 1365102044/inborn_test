@@ -1,0 +1,143 @@
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/code/!svn/ver/4255/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View
+END
+YBConfirmOrderDefaultCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/code/!svn/ver/2921/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View/YBConfirmOrderDefaultCell.h
+END
+YBConfirmOrderUserInformationCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/code/!svn/ver/2944/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View/YBConfirmOrderUserInformationCell.h
+END
+YBConfirmOrderDefaultCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/code/!svn/ver/4201/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View/YBConfirmOrderDefaultCell.m
+END
+YBConfirmOrderUserInformationCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/code/!svn/ver/3338/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View/YBConfirmOrderUserInformationCell.m
+END
+YBConfirmOrderAmontDetailCell.xib
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/code/!svn/ver/2679/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View/YBConfirmOrderAmontDetailCell.xib
+END
+YBConfirmOrderDetailCell.xib
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/code/!svn/ver/2679/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View/YBConfirmOrderDetailCell.xib
+END
+YBConfirmOrderAmontDetailCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/code/!svn/ver/2921/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View/YBConfirmOrderAmontDetailCell.h
+END
+YBConfirmOrderDetailCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/code/!svn/ver/2921/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View/YBConfirmOrderDetailCell.h
+END
+YBConfirmOrderUserInformationTempCell.xib
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/code/!svn/ver/2740/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View/YBConfirmOrderUserInformationTempCell.xib
+END
+YBConfirmOrderAmontDetailCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/code/!svn/ver/4217/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View/YBConfirmOrderAmontDetailCell.m
+END
+YBConfirmDepositCell.xib
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/code/!svn/ver/2683/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View/YBConfirmDepositCell.xib
+END
+YBConfirmAgreementCell.xib
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/code/!svn/ver/3538/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View/YBConfirmAgreementCell.xib
+END
+YBConfirmOrderDetailCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/code/!svn/ver/3270/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View/YBConfirmOrderDetailCell.m
+END
+YBConfirmOrderUserInformationTempCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/code/!svn/ver/2921/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View/YBConfirmOrderUserInformationTempCell.h
+END
+YBConfirmDepositCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/code/!svn/ver/2921/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View/YBConfirmDepositCell.h
+END
+YBConfirmAgreementCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/code/!svn/ver/2921/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View/YBConfirmAgreementCell.h
+END
+YBConfirmBaseCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/code/!svn/ver/2740/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View/YBConfirmBaseCell.h
+END
+YBConfirmOrderDefaultCell.xib
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/code/!svn/ver/4201/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View/YBConfirmOrderDefaultCell.xib
+END
+YBConfirmOrderUserInformationCell.xib
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/code/!svn/ver/4255/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View/YBConfirmOrderUserInformationCell.xib
+END
+YBConfirmOrderUserInformationTempCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/code/!svn/ver/3338/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View/YBConfirmOrderUserInformationTempCell.m
+END
+YBConfirmDepositCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/code/!svn/ver/2921/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View/YBConfirmDepositCell.m
+END
+YBConfirmAgreementCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/code/!svn/ver/3538/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View/YBConfirmAgreementCell.m
+END
+YBConfirmBaseCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/code/!svn/ver/3529/inshop/ios/trunk/inborn/inborn/Module/Order/ConfirmOrder/View/YBConfirmBaseCell.m
+END

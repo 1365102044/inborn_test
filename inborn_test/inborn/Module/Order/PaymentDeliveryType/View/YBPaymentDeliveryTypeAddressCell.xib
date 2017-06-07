@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="xLl-4y-Q6d" customClass="YBPaymentDeliveryTypeAddressCell">
+            <rect key="frame" x="0.0" y="0.0" width="234" height="230"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="234" height="230"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dwY-eA-1DW" customClass="ZJBaseView">
+                        <rect key="frame" x="0.0" y="0.0" width="234" height="230"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DvV-KU-OdH" customClass="YBAttributedStringLabel">
+                                <rect key="frame" x="10" y="12" width="214" height="206"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="DvV-KU-OdH" secondAttribute="bottom" constant="12" id="C2h-bE-YEr"/>
+                            <constraint firstAttribute="trailing" secondItem="DvV-KU-OdH" secondAttribute="trailing" constant="10" id="LE1-8u-joJ"/>
+                            <constraint firstItem="DvV-KU-OdH" firstAttribute="top" secondItem="dwY-eA-1DW" secondAttribute="top" constant="12" id="mr5-EU-wBn"/>
+                            <constraint firstItem="DvV-KU-OdH" firstAttribute="leading" secondItem="dwY-eA-1DW" secondAttribute="leading" constant="10" id="of0-94-6a4"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="dwY-eA-1DW" secondAttribute="trailing" id="5eR-Pl-dZr"/>
+                <constraint firstAttribute="bottom" secondItem="dwY-eA-1DW" secondAttribute="bottom" id="Y3t-Lq-7Yt"/>
+                <constraint firstItem="dwY-eA-1DW" firstAttribute="leading" secondItem="xLl-4y-Q6d" secondAttribute="leading" id="eMC-GZ-jSx"/>
+                <constraint firstItem="dwY-eA-1DW" firstAttribute="top" secondItem="xLl-4y-Q6d" secondAttribute="top" id="hnU-Am-eud"/>
+            </constraints>
+            <size key="customSize" width="234" height="230"/>
+            <connections>
+                <outlet property="addressLabel" destination="DvV-KU-OdH" id="nL9-H3-5yU"/>
+                <outlet property="bgView" destination="dwY-eA-1DW" id="T8B-xa-vJS"/>
+                <outletCollection property="bgMarginConsArray" destination="hnU-Am-eud" id="flh-Ya-6pI"/>
+                <outletCollection property="bgMarginConsArray" destination="eMC-GZ-jSx" id="gmi-99-T5Y"/>
+                <outletCollection property="bgMarginConsArray" destination="5eR-Pl-dZr" id="Lyu-hZ-w8O"/>
+                <outletCollection property="bgMarginConsArray" destination="Y3t-Lq-7Yt" id="xc4-rx-54W"/>
+                <outletCollection property="addressLabelMarginConsArray" destination="mr5-EU-wBn" id="9hC-if-SND"/>
+                <outletCollection property="addressLabelMarginConsArray" destination="of0-94-6a4" id="vfe-JI-tuG"/>
+                <outletCollection property="addressLabelMarginConsArray" destination="LE1-8u-joJ" id="6ev-oQ-IUe"/>
+                <outletCollection property="addressLabelMarginConsArray" destination="C2h-bE-YEr" id="nib-HV-IXm"/>
+            </connections>
+            <point key="canvasLocation" x="62" y="66"/>
+        </collectionViewCell>
+    </objects>
+</document>

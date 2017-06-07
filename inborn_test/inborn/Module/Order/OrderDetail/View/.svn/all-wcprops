@@ -1,0 +1,143 @@
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/code/!svn/ver/4255/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View
+END
+YBOrderDetailUserInformationCell.xib
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/code/!svn/ver/4255/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View/YBOrderDetailUserInformationCell.xib
+END
+YBOrderDetailStepHeaderView.h
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/code/!svn/ver/3728/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View/YBOrderDetailStepHeaderView.h
+END
+YBOrderDetailBaseCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/code/!svn/ver/3529/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View/YBOrderDetailBaseCell.m
+END
+YBOrderDetailCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/code/!svn/ver/3728/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View/YBOrderDetailCell.h
+END
+YBOrderDetailStatusCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/code/!svn/ver/2944/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View/YBOrderDetailStatusCell.h
+END
+YBOrderDetailUserInformationCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/code/!svn/ver/2944/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View/YBOrderDetailUserInformationCell.h
+END
+YBOrderDetailStepHeaderView.m
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/code/!svn/ver/3728/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View/YBOrderDetailStepHeaderView.m
+END
+YBOrderDetailCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/code/!svn/ver/4236/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View/YBOrderDetailCell.m
+END
+YBOrderDetailDefaultCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/code/!svn/ver/2971/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View/YBOrderDetailDefaultCell.h
+END
+YBOrderDetailStatusCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/code/!svn/ver/3466/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View/YBOrderDetailStatusCell.m
+END
+YBOrderDetailUserInformationCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/code/!svn/ver/4255/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View/YBOrderDetailUserInformationCell.m
+END
+YBOrderDetailDefaultCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/code/!svn/ver/3292/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View/YBOrderDetailDefaultCell.m
+END
+YBOrderDetailLogisticsCell.xib
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/code/!svn/ver/3270/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View/YBOrderDetailLogisticsCell.xib
+END
+YBOrderDetailAmontDetailCell.xib
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/code/!svn/ver/2944/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View/YBOrderDetailAmontDetailCell.xib
+END
+YBOrderDetailPickAddressCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/code/!svn/ver/2944/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View/YBOrderDetailPickAddressCell.h
+END
+YBOrderDetailLogisticsCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/code/!svn/ver/2944/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View/YBOrderDetailLogisticsCell.h
+END
+YBOrderDetailPickAddressCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/code/!svn/ver/3438/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View/YBOrderDetailPickAddressCell.m
+END
+YBOrderDetailAmontDetailCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/code/!svn/ver/2944/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View/YBOrderDetailAmontDetailCell.h
+END
+YBOrderDetailLogisticsCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/code/!svn/ver/3993/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View/YBOrderDetailLogisticsCell.m
+END
+YBOrderDetailAmontDetailCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/code/!svn/ver/3529/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View/YBOrderDetailAmontDetailCell.m
+END
+YBOrderDetailCell.xib
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/code/!svn/ver/2944/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View/YBOrderDetailCell.xib
+END
+YBOrderDetailBaseCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/code/!svn/ver/2976/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View/YBOrderDetailBaseCell.h
+END
+YBOrderDetailStepHeaderView.xib
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/code/!svn/ver/2930/inshop/ios/trunk/inborn/inborn/Module/Order/OrderDetail/View/YBOrderDetailStepHeaderView.xib
+END

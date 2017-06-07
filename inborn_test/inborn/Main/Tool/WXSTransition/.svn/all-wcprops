@@ -1,0 +1,203 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/code/!svn/ver/3978/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition
+END
+WXSTransitionManager+ViewMoveAnimation.m
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionManager+ViewMoveAnimation.m
+END
+WXSTransitionManager+FragmentAnimation.m
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionManager+FragmentAnimation.m
+END
+WXSTransitionManager+PageAnimation.h
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionManager+PageAnimation.h
+END
+WXSTransitionProperty.h
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionProperty.h
+END
+WXSTransitionManager+SpreadAnimation.h
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionManager+SpreadAnimation.h
+END
+WXSTransitionManager+CoverAnimation.h
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionManager+CoverAnimation.h
+END
+WXSTransitionManager+PageAnimation.m
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionManager+PageAnimation.m
+END
+UIViewController+WXSTransition.h
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/UIViewController+WXSTransition.h
+END
+WXSTransitionManager+SpreadAnimation.m
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionManager+SpreadAnimation.m
+END
+WXSTransitionManager+CoverAnimation.m
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionManager+CoverAnimation.m
+END
+WXSTransitionProperty.m
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionProperty.m
+END
+UIViewController+WXSTransition.m
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/UIViewController+WXSTransition.m
+END
+WXSTransitionManager+BrickAnimation.h
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionManager+BrickAnimation.h
+END
+WXSTransitionManager+BoomAnimation.h
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionManager+BoomAnimation.h
+END
+WXSTransitionManager+BrickAnimation.m
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionManager+BrickAnimation.m
+END
+WXSTransitionManager+BoomAnimation.m
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionManager+BoomAnimation.m
+END
+WXSTransitionManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionManager.h
+END
+WXSTypedefConfig.h
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTypedefConfig.h
+END
+WXSTransitionManager+SystermAnimation.h
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionManager+SystermAnimation.h
+END
+UINavigationController+WXSTransition.h
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/UINavigationController+WXSTransition.h
+END
+WXSTransitionManager.m
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/code/!svn/ver/3978/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionManager.m
+END
+WXSTransitionManager+SystermAnimation.m
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionManager+SystermAnimation.m
+END
+UINavigationController+WXSTransition.m
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/UINavigationController+WXSTransition.m
+END
+WXSTransitionManager+TypeTool.h
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionManager+TypeTool.h
+END
+WXSTransitionManager+TypeTool.m
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionManager+TypeTool.m
+END
+UIViewController+WXSTransitionProperty.h
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/UIViewController+WXSTransitionProperty.h
+END
+WXSTransitionManager+InsideThenPushAnimation.h
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionManager+InsideThenPushAnimation.h
+END
+UIViewController+WXSTransitionProperty.m
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/UIViewController+WXSTransitionProperty.m
+END
+WXSTransitionManager+InsideThenPushAnimation.m
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionManager+InsideThenPushAnimation.m
+END
+WXSPercentDrivenInteractiveTransition.h
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSPercentDrivenInteractiveTransition.h
+END
+WXSTransitionManager+ViewMoveAnimation.h
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionManager+ViewMoveAnimation.h
+END
+WXSTransitionManager+FragmentAnimation.h
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSTransitionManager+FragmentAnimation.h
+END
+WXSPercentDrivenInteractiveTransition.m
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Main/Tool/WXSTransition/WXSPercentDrivenInteractiveTransition.m
+END

@@ -1,0 +1,41 @@
+//
+//  YBGoodsDeatilHeaderView.h
+//  inborn
+//
+//  Created by 刘文强 on 2017/3/20.
+//  Copyright © 2017年 inborn. All rights reserved.
+//
+
+#import "ZJBaseView.h"
+#import "YBGoodsDeatilModel.h"
+
+/**
+ 点击商品图片的代理
+ */
+@protocol clickGoodsImageViewDelegate <NSObject>
+
+- (void)clickGoodsImageViewWith:(UIImageView *)selectImageView ImageViewIndex:(NSInteger)index;
+
+@end
+
+/**
+ 获取 headerviewheight
+ */
+typedef void(^getHeaderViewHeightBlock)(CGFloat height);
+
+typedef void(^clickHeaderBtn)(UIButton* sender);
+
+@interface YBGoodsDeatilHeaderView : ZJBaseView
+
+@property(nonatomic,strong) YBGoodsDeatilModel * dataModel;
+
+- (void)headerViewGetheaderHeight:(getHeaderViewHeightBlock)HeaderViewHeightBlock clickheaderViewBtn:(clickHeaderBtn)clickBtnBlock;
+
+/**
+ types 1 添加喜欢； 2 取消喜欢
+ */
+- (void)collectGoodsOrCancleCollectGoodsWith:(NSInteger)types;
+
+@property(nonatomic,weak) id <clickGoodsImageViewDelegate> delegate;
+
+@end

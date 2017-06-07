@@ -1,0 +1,110 @@
+PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
+  - BaiduMobStat (4.5.0)
+  - FMDB (2.6.2):
+    - FMDB/standard (= 2.6.2)
+  - FMDB/standard (2.6.2)
+  - IQKeyboardManager (4.0.9)
+  - JCore (1.1.2)
+  - JPush (3.0.3):
+    - JCore (~> 1.1.1)
+  - Masonry (1.0.2)
+  - Meiqia (3.3.7):
+    - Meiqia/MeiqiaSDK (= 3.3.7)
+    - Meiqia/MQChatViewController (= 3.3.7)
+  - Meiqia/MeiqiaSDK (3.3.7)
+  - Meiqia/MQChatViewController (3.3.7):
+    - Meiqia/MeiqiaSDK
+  - MJRefresh (3.1.12)
+  - MOBFoundation (2.2.17)
+  - SDWebImage (4.0.0):
+    - SDWebImage/Core (= 4.0.0)
+  - SDWebImage/Core (4.0.0)
+  - ShareSDK3 (3.6.2.1):
+    - MOBFoundation
+    - ShareSDK3/ShareSDK (= 3.6.2.1)
+  - ShareSDK3/ShareSDK (3.6.2.1):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKPlatforms/Mail (3.6.2.1):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKPlatforms/SinaWeibo (3.6.2.1):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKPlatforms/SMS (3.6.2.1):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKPlatforms/WeChat (3.6.2.1):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKUI (3.6.2.1):
+    - MOBFoundation
+  - SVProgressHUD (2.1.2)
+  - WebViewJavascriptBridge (6.0.2)
+  - YJFavorEmitter (1.0.4)
+  - YYKit (1.0.9):
+    - YYKit/no-arc (= 1.0.9)
+  - YYKit/no-arc (1.0.9)
+
+DEPENDENCIES:
+  - AFNetworking
+  - BaiduMobStat
+  - FMDB
+  - IQKeyboardManager
+  - JPush
+  - Masonry
+  - Meiqia
+  - MJRefresh
+  - MOBFoundation
+  - SDWebImage
+  - ShareSDK3 (from `https://git.oschina.net/MobClub/ShareSDK-for-iOS.git`)
+  - ShareSDK3/ShareSDKPlatforms/Mail (from `https://git.oschina.net/MobClub/ShareSDK-for-iOS.git`)
+  - ShareSDK3/ShareSDKPlatforms/SinaWeibo (from `https://git.oschina.net/MobClub/ShareSDK-for-iOS.git`)
+  - ShareSDK3/ShareSDKPlatforms/SMS (from `https://git.oschina.net/MobClub/ShareSDK-for-iOS.git`)
+  - ShareSDK3/ShareSDKPlatforms/WeChat (from `https://git.oschina.net/MobClub/ShareSDK-for-iOS.git`)
+  - ShareSDK3/ShareSDKUI (from `https://git.oschina.net/MobClub/ShareSDK-for-iOS.git`)
+  - SVProgressHUD
+  - WebViewJavascriptBridge
+  - YJFavorEmitter
+  - YYKit
+
+EXTERNAL SOURCES:
+  ShareSDK3:
+    :git: https://git.oschina.net/MobClub/ShareSDK-for-iOS.git
+
+CHECKOUT OPTIONS:
+  ShareSDK3:
+    :commit: 5d78573d9dd45f2eb6116a6413bd50a59697879a
+    :git: https://git.oschina.net/MobClub/ShareSDK-for-iOS.git
+
+SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  BaiduMobStat: 404e5d87147428dd5baf0912c5b95647b8a25367
+  FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
+  IQKeyboardManager: 322c7405df3eb5f7e50dede32ea937bf3d4364e0
+  JCore: 9e9bd280a38090d66aca0a7547581cd29804c6eb
+  JPush: 8ea7c5bee363191cb5214f5d34ae11e1c5494722
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  Meiqia: 163cc2fca46e1df12f4430f851f4c2e203ca82d2
+  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  MOBFoundation: fa12570bb16a7655dca3b3472ce6cd962e7ff5e3
+  SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
+  ShareSDK3: 3c531b5e64576e4b947127b9b1f46b685dfa3b37
+  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
+  WebViewJavascriptBridge: 791ee0e26d1bf15efe5fb7fb9666a71a19b89d77
+  YJFavorEmitter: f86d9cdd4e23672c019327bb9afd16a071467693
+  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
+
+PODFILE CHECKSUM: 083cd531f741d36b4d9a135a780d5d07eed9023c
+
+COCOAPODS: 1.2.1

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1421" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="gn5-zt-qsn" customClass="YBCertifiedPaymentAlertView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G6H-zD-K22" customClass="YBDefaultButton">
+                    <rect key="frame" x="15" y="10" width="28" height="28"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="28" id="Boc-4b-g8j"/>
+                        <constraint firstAttribute="height" constant="28" id="kcU-h9-xru"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="closeButtonClick:" destination="gn5-zt-qsn" eventType="touchUpInside" id="0t3-nF-O0d"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MhH-bM-1zx" customClass="YBDefaultButton">
+                    <rect key="frame" x="160.5" y="16" width="54" height="34"/>
+                    <state key="normal" title="Button"/>
+                </button>
+                <button opaque="NO" tag="1002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oJI-rj-OAv" customClass="YBDefaultButton">
+                    <rect key="frame" x="325" y="13" width="22" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="6e0-Lb-oho"/>
+                        <constraint firstAttribute="width" constant="22" id="bnP-Wg-tK9"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="tipsButtonClick:" destination="gn5-zt-qsn" eventType="touchUpInside" id="Won-Br-Q6g"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GN3-2L-gwB">
+                    <rect key="frame" x="15" y="65" width="345" height="1"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="xI8-1M-332"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="buG-5G-f4x" customClass="YBAttributedStringLabel">
+                    <rect key="frame" x="166.5" y="91" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" tag="1003" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aOR-2G-1J8" customClass="YBRightImageButton">
+                    <rect key="frame" x="15" y="146" width="345" height="34"/>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="bankButtonClick:" destination="gn5-zt-qsn" eventType="touchUpInside" id="u4h-uT-2QP"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="buG-5G-f4x" firstAttribute="top" secondItem="GN3-2L-gwB" secondAttribute="bottom" constant="25" id="3hD-7V-PMs"/>
+                <constraint firstItem="GN3-2L-gwB" firstAttribute="top" secondItem="MhH-bM-1zx" secondAttribute="bottom" constant="15" id="7Bo-7S-F13"/>
+                <constraint firstItem="GN3-2L-gwB" firstAttribute="leading" secondItem="gn5-zt-qsn" secondAttribute="leading" constant="15" id="E0E-Ej-IVk"/>
+                <constraint firstItem="MhH-bM-1zx" firstAttribute="centerX" secondItem="gn5-zt-qsn" secondAttribute="centerX" id="HXQ-3u-cZN"/>
+                <constraint firstItem="aOR-2G-1J8" firstAttribute="top" secondItem="buG-5G-f4x" secondAttribute="bottom" constant="34" id="ISC-L6-KQt"/>
+                <constraint firstAttribute="trailing" secondItem="oJI-rj-OAv" secondAttribute="trailing" constant="28" id="MSS-eA-38J"/>
+                <constraint firstItem="buG-5G-f4x" firstAttribute="centerX" secondItem="gn5-zt-qsn" secondAttribute="centerX" id="Nlj-zY-m9H"/>
+                <constraint firstItem="aOR-2G-1J8" firstAttribute="leading" secondItem="GN3-2L-gwB" secondAttribute="leading" id="PIc-2Q-w7r"/>
+                <constraint firstItem="G6H-zD-K22" firstAttribute="top" secondItem="gn5-zt-qsn" secondAttribute="top" constant="10" id="Xuz-Fj-0AS"/>
+                <constraint firstItem="G6H-zD-K22" firstAttribute="leading" secondItem="gn5-zt-qsn" secondAttribute="leading" constant="15" id="eOF-VT-OZZ"/>
+                <constraint firstAttribute="trailing" secondItem="GN3-2L-gwB" secondAttribute="trailing" constant="15" id="lzh-NI-Rxz"/>
+                <constraint firstItem="oJI-rj-OAv" firstAttribute="top" secondItem="gn5-zt-qsn" secondAttribute="top" constant="13" id="pnf-bQ-sfS"/>
+                <constraint firstItem="MhH-bM-1zx" firstAttribute="top" secondItem="gn5-zt-qsn" secondAttribute="top" constant="16" id="q8G-FH-V8i"/>
+                <constraint firstItem="aOR-2G-1J8" firstAttribute="trailing" secondItem="GN3-2L-gwB" secondAttribute="trailing" id="wHT-RG-sw2"/>
+            </constraints>
+            <connections>
+                <outlet property="amontLabel" destination="buG-5G-f4x" id="JPw-e2-a2d"/>
+                <outlet property="amontLabelTopMarginCons" destination="3hD-7V-PMs" id="r6c-Za-kom"/>
+                <outlet property="bankCardButton" destination="aOR-2G-1J8" id="TKy-Sb-JOd"/>
+                <outlet property="bankCardButtonTopMarginCons" destination="ISC-L6-KQt" id="1Fp-VW-LaB"/>
+                <outlet property="closeButton" destination="G6H-zD-K22" id="6Pe-Mh-vLK"/>
+                <outlet property="closeButtonLeftMarginCons" destination="eOF-VT-OZZ" id="r1j-CM-xPd"/>
+                <outlet property="closeButtonTopMarginCons" destination="Xuz-Fj-0AS" id="gz9-RZ-gTW"/>
+                <outlet property="marginLineLeftMarginCons" destination="E0E-Ej-IVk" id="kQX-ng-WQX"/>
+                <outlet property="marginLineRightMarginCons" destination="lzh-NI-Rxz" id="7wD-5V-FiJ"/>
+                <outlet property="otherFuncButton" destination="oJI-rj-OAv" id="dz1-HG-xwt"/>
+                <outlet property="otherFuncButtonRightMarginCons" destination="MSS-eA-38J" id="hBW-HR-Zt6"/>
+                <outlet property="otherFuncButtonTopMarginCons" destination="pnf-bQ-sfS" id="uhq-1G-5RL"/>
+                <outlet property="titleButton" destination="MhH-bM-1zx" id="hVQ-Le-dOu"/>
+                <outlet property="titleLabelTopMarginCons" destination="q8G-FH-V8i" id="zo8-r4-Ldh"/>
+                <outlet property="topMarginLineTopMarginCons" destination="7Bo-7S-F13" id="MvO-jT-eo0"/>
+                <outletCollection property="marginLinesArray" destination="GN3-2L-gwB" id="RWN-5a-xIK"/>
+                <outletCollection property="closeButtonHeightWidthCons" destination="kcU-h9-xru" id="thK-WY-91X"/>
+                <outletCollection property="closeButtonHeightWidthCons" destination="Boc-4b-g8j" id="f4V-Sv-YHd"/>
+                <outletCollection property="otherFuncButtonHeightWidthCons" destination="6e0-Lb-oho" id="UmS-uJ-ata"/>
+                <outletCollection property="otherFuncButtonHeightWidthCons" destination="bnP-Wg-tK9" id="DTQ-Vt-SVz"/>
+            </connections>
+            <point key="canvasLocation" x="6.5" y="47.5"/>
+        </view>
+    </objects>
+</document>

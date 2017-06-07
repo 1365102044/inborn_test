@@ -1,0 +1,651 @@
+//
+//  YBHomePageController.m
+//  inborn
+//
+//  Created by 郑键 on 17/3/20.
+//  Copyright © 2017年 inborn. All rights reserved.
+//
+
+#import "YBHomePageController.h"
+#import "ZJBaseBarButtonItem.h"
+#import "YBHomePageViewModel.h"
+#import "YBHomePageGoodListController.h"
+#import "YBSearchBarView.h"
+#import "YBSearchHistoryRecordViewController.h"
+#import "ZJHomePageService.h"
+#import "YBPublicConfigure_LocalData.h"
+#import "YBLikeAndRecordListViewController.h"
+#import "MQCustomerServiceManager.h"
+#import <AVFoundation/AVFoundation.h>
+#import "YXPayZBarViewController.h"
+#import "ZJProjectNetRequestManager.h"
+#import "User_LocalData.h"
+#import "YBLoginViewController.h"
+#import "ZJBaseNavigationController.h"
+#import "YBVersionModel.h"
+#import "YBVersionUpgradeView.h"
+#import "YBScanViewController.h"
+#import "YBTestMianViewController.h"
+@interface YBHomePageController ()
+
+/**
+ 功能视图
+ */
+@property (nonatomic, strong) ZJBaseView *funcView;
+
+/**
+ toTop
+ */
+@property (nonatomic, strong) YBDefaultButton *toTopButton;
+
+/**
+ customer
+ */
+@property (nonatomic, strong) YBDefaultButton *customerButton;
+
+/**
+ 足记
+ */
+@property (nonatomic, strong) YBDefaultButton *footprintsButton;
+
+/**
+ 视图模型
+ */
+@property (nonatomic, strong) YBHomePageViewModel *goodListViewModel;
+
+
+@end
+
+@implementation YBHomePageController
+
+#pragma mark - First.通知
+
+- (void)refreshHomePageData:(NSNotification *)no
+{
+    YBLog(@"%@", no);
+    [self refreshCurrentGoodsData];
+}
+
+#pragma mark - Second.赋值
+
+- (void)setGoodListViewModel:(YBHomePageViewModel *)goodListViewModel
+{
+    _goodListViewModel                                  = goodListViewModel;
+    
+    /**
+     *  分类赋值
+     */
+    self.categoriesController.catrgoriesArray           = goodListViewModel.categoriesArray;
+    
+    /**
+     *  创建商品列表视图
+     */
+    [self.view insertSubview:self.contentScrollView atIndex:0];
+    self.contentScrollView.contentSize                  = CGSizeMake(self.view.width * self.goodListViewModel.categoriesArray.count, 0);
+    [goodListViewModel.categoriesArray enumerateObjectsUsingBlock:^(YBGoodListViewCategoriesModel * _Nonnull obj,
+                                                                    NSUInteger idx,
+                                                                    BOOL * _Nonnull stop) {
+        YBHomePageGoodListController *goodListController            = [[YBHomePageGoodListController alloc] init];
+        goodListController.categoriesModel                          = obj;
+        
+        /**
+         *  当为第一个视图时直接展示数据
+         */
+        if (idx == 2) {
+            goodListController.homePageGoodListViewModel            = goodListViewModel;
+        }
+        [self.goodListControllersArray addObject:goodListController];
+        [self addChildViewController:goodListController];
+    }];
+    
+    [self setupSubGoodListControllersWithScrollView:self.contentScrollView];
+}
+
+#pragma mark - Third.点击事件
+
+- (void)tempViewButtonClick:(UIButton *)sender
+{
+    [super tempViewButtonClick:sender];
+    
+    [self checkAppVersion];
+    [self loadData];
+    [self requestPublicConfigureData];
+}
+
+-(BOOL)  APCheckIfAppInstalled2:(NSString *)urlSchemes
+{
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:urlSchemes]])
+    {
+        NSLog(@" installed");
+        NSDictionary *param = @{@"123":@"41235",
+                                @"qe":@"qwadsjadfkl"};
+        NSString *jsonstr = [param jsonStringEncoded];
+        jsonstr = [jsonstr stringByReplacingOccurrencesOfString:@"{" withString:@""];
+        jsonstr = [jsonstr stringByReplacingOccurrencesOfString:@"}" withString:@""];
+        NSString *urlstr = [NSString stringWithFormat:@"%@?%@",urlSchemes,jsonstr];
+        if (iOS10) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlstr] options:@{} completionHandler:^(BOOL success) {
+                
+            }];
+        }else{
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlstr]];
+        }
+        return  YES;
+    }else{
+        return  NO;
+    }
+}
+
+- (void)buttonClick:(UIButton *)sender
+{
+    if (sender.tag == 1001) {
+        
+        /**
+         *  扫一扫
+         */
+//        [self ScanlLoginButtonClick];
+//        [self.navigationController pushViewController:[[YBTestMianViewController alloc]init] animated:YES];
+        
+        
+        if ([self APCheckIfAppInstalled2:@"MyTestApp://Liuwq.testapp"]) {
+            YBLog(@"+++++install+");
+            
+        }else{
+            YBLog(@"++++NO+install+");
+            
+        }
+        
+    }
+    
+    if (sender.tag == 1002) {
+        
+        /**
+         *  购物车
+         */
+    }
+    
+    if (sender.tag == 1003) {
+        
+        /**
+         *  客服
+         */
+        [[MQCustomerServiceManager share] showCustomerServiceWithViewController:self];
+    }
+    
+    if (sender.tag == 1004) {
+        
+        if (![User_LocalData getTokenId]||[User_LocalData getTokenId].length == 0) {
+            loginTypeEnum type = generalLoginType;
+            if ([User_LocalData getUserData].mobile) {
+                type = haveAcountLoginType;
+            }
+            YBLoginViewController *loginvc = [YBLoginViewController creatLoginViewControllerWithType:type extend:nil];
+            ZJBaseNavigationController *nav = [[ZJBaseNavigationController alloc]initWithRootViewController:loginvc];
+            [self presentViewController:nav animated:YES completion:nil];
+            return;
+        }
+        
+        /**
+         *  足记
+         */
+        YBLikeAndRecordListViewController *likeAndRecordListViewController = [YBLikeAndRecordListViewController creatLikeAndRecordListViewControllerWith:RecordVcType
+                                                                                                                                                  extend:nil];
+        [self.navigationController pushViewController:likeAndRecordListViewController animated:YES];
+        
+    }
+    
+    if (sender.tag == 1005) {
+        
+        /**
+         *  置顶
+         */
+        [self toTopCurrentGoodListController];
+    }
+}
+
+#pragma mark - Fourth.代理方法
+
+#pragma mark <YBGoodListControllerDelegate>
+
+- (void)goodListController:(YBGoodListController *)goodListController
+             contentOffSet:(CGPoint)contentOffset
+{
+    /**
+     *  上滑，品牌分类悬停并修改为条件筛选、NavigationBar隐藏、tabBar隐藏
+     *  下滑，条件筛选改为品牌分类、NavigationBar显示、tabBar显示
+     */
+    
+    /**
+     *  上滑&&控件为显示状态下
+     */
+    if (self.currentOffsetY < contentOffset.y
+        && self.tabBarController.tabBar.ex_y == SCREEN_HEIGHT - self.tabBarController.tabBar.height
+        && self.currentOffsetY > 100.f) {
+        
+        /**
+         *  切换筛选器类型
+         */
+        [self upAnimation];
+    }
+    
+    /**
+     *  下滑&&控件为隐藏状态
+     */
+    if (self.currentOffsetY > contentOffset.y
+        && self.tabBarController.tabBar.ex_y == SCREEN_HEIGHT
+        && self.currentOffsetY < goodListController.collectionView.contentSize.height - 600) {
+        
+        /**
+         *  切换筛选器类型
+         */
+        self.categoriesController.type                          = YBGoodListViewCategories;
+        
+        [self.categoriesController.collectionView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.right.mas_equalTo(self.view);
+            make.top.mas_equalTo(self.view).mas_offset(STATUS_AND_NAVIGATION_HEIGHT);
+            make.height.mas_equalTo(ADJUST_PERCENT_FLOAT(goodListCategoriesViewHeight));
+        }];
+        
+        [UIView animateWithDuration:0.25 animations:^{
+            
+            /**
+             *  下滑动画体
+             */
+            self.tabBarController.tabBar.ex_y                   = SCREEN_HEIGHT - self.tabBarController.tabBar.height;
+            self.funcView.alpha                                 = 0.f;
+            [self changeNavigationSubViewsAlpha:1.0];
+            [self.view layoutIfNeeded];
+            
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
+    
+    /**
+     *  记录当前的偏移量
+     */
+    self.currentOffsetY                                         = contentOffset.y;
+}
+
+- (void)upAnimation
+{
+    self.categoriesController.type                          = YBGoodListViewConditionalScreening;
+    
+    [self.categoriesController.collectionView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(self.view);
+        make.top.mas_equalTo(STATUS_BAR_HEIGHT);
+        make.height.mas_equalTo(ADJUST_PERCENT_FLOAT(goodListConditionalScreeningViewHeight));
+    }];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        
+        /**
+         *  上滑动画体
+         */
+        self.tabBarController.tabBar.ex_y                   = SCREEN_HEIGHT;
+        self.funcView.alpha                                 = 1.f;
+        [self changeNavigationSubViewsAlpha:0.01];
+        [self.view layoutIfNeeded];
+        
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+
+#pragma mark - Fifth.控制器生命周期
+
+/**
+ 控制器初始化视图完毕
+ */
+- (void)viewDidLoad {
+    
+    [super viewDidLoad];
+    
+    /**
+     *  初始化ViewModel
+     */
+    _goodListViewModel                                          = [[YBHomePageViewModel alloc] init];
+    
+    [self setupCustomNavigation];
+    [self setupCustomUI];
+    [self checkAppVersion];
+    [self requestPublicConfigureData];
+    [self loadData];
+    
+    [SYSTEM_NOTIFICATIONCENTER addObserver:self selector:@selector(refreshHomePageData:) name:PUBLIC_REFRESHHOMEPAGE_NOTIFICATION object:nil];
+}
+
+- (void)dealloc
+{
+    [SYSTEM_NOTIFICATIONCENTER removeObserver:self name:PUBLIC_REFRESHHOMEPAGE_NOTIFICATION object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    /**
+     掉线后 从登录页面 未登录返回到 这个页面tabbar不能隐藏
+     */
+    self.tabBarController.tabBar.hidden = NO;
+}
+
+- (void)hiddenMaskView
+{
+    if (self.myMaskView.alpha == 1) {
+        return;
+    }
+    [UIView animateWithDuration:0.25 animations:^{
+        self.myMaskView.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        if (finished) {
+            [self.myMaskView removeFromSuperview];
+        }
+    }];
+}
+
+#pragma mark - Sixth.界面配置
+
+/**
+ 配置Navigation
+ */
+- (void)setupCustomNavigation
+{
+    [super setupCustomNavigation];
+    
+    /**
+     *  左侧按钮
+     */
+    YBDefaultButton *leftButton                 = [YBDefaultButton buttonImageWithImageFilePath:IMAGEFILEPATH_HOMEPAGE
+                                                                                     imageNamed:@"home_scan"
+                                                                                           type:ZJProjectButtonSetImage
+                                                                                         target:self
+                                                                                       selector:@selector(buttonClick:)];
+    leftButton.tag                              = 1001;
+    
+    /**
+     *  右侧按钮
+     */
+    //    YBDefaultButton *rightButton                = [YBDefaultButton buttonImageWithImageFilePath:IMAGEFILEPATH_HOMEPAGE
+    //                                                                                     imageNamed:@"home_shop"
+    //                                                                                           type:ZJProjectButtonSetImage
+    //                                                                                         target:self
+    //                                                                                       selector:@selector(buttonClick:)];
+    //    rightButton.tag                             = 1002;
+    
+    /**
+     *  中间搜索框
+     */
+    YBSearchBarView *searchBarView              = [YBSearchBarView creatSearchBarViewWithType:notEditType
+                                                                         textfieldPlacehodler:@"爱马仕"
+                                                                                   clickBlock:^(NSString *textfile, searchBarType type) {
+                                                                                       
+                                                                                       /**
+                                                                                        *  跳转搜索界面
+                                                                                        */
+                                                                                       YBSearchHistoryRecordViewController *searchViewController = [YBSearchHistoryRecordViewController creatSeachHistoryRecordViewControllerExtend:nil];
+                                                                                       [self.navigationController pushViewController:searchViewController animated:YES];
+                                                                                   }];
+    
+    [self.translucentBgView addSubview:leftButton];
+    //    [self.translucentBgView addSubview:rightButton];
+    [self.translucentBgView addSubview:searchBarView];
+    
+    [leftButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.translucentBgView).mas_offset(8.f);
+        make.top.mas_equalTo(self.translucentBgView).mas_offset(28.f);
+        make.width.height.mas_equalTo(28.f);
+    }];
+    
+    //    [rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    //        make.right.mas_equalTo(self.translucentBgView).mas_offset(-8.f);
+    //        make.top.mas_equalTo(self.translucentBgView).mas_offset(28.f);
+    //        make.width.height.mas_equalTo(28.f);
+    //    }];
+    
+    [searchBarView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(leftButton.mas_right).mas_offset(ADJUST_PERCENT_FLOAT(8.f));
+        make.right.mas_equalTo(self.translucentBgView).mas_offset(ADJUST_PERCENT_FLOAT(-8.f));
+        make.top.bottom.mas_equalTo(leftButton);
+    }];
+}
+
+/**
+ 配置UI界面
+ */
+- (void)setupCustomUI
+{
+    [super setupCustomUI];
+    
+    [self.categoriesController.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(self.view);
+        make.top.mas_equalTo(self.view).mas_offset(STATUS_AND_NAVIGATION_HEIGHT);
+        make.height.mas_equalTo(ADJUST_PERCENT_FLOAT(goodListCategoriesViewHeight));
+    }];
+    
+    [self.view addSubview:self.funcView];
+    
+    [self.funcView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(ADJUST_PERCENT_FLOAT(44.f));
+        make.height.mas_equalTo(ADJUST_PERCENT_FLOAT(44 * 3 + 2 * 10));
+        make.right.mas_equalTo(self.view).mas_offset(ADJUST_PERCENT_FLOAT(-12.f));
+        make.bottom.mas_equalTo(self.view).mas_offset(ADJUST_PERCENT_FLOAT(-70.f));
+    }];
+}
+
+#pragma mark - Seventh.懒加载
+
+#pragma mark - Eight.LoadData
+
+- (void)loadData
+{
+    WEAKSELF(self);
+    [self.goodListViewModel getHomePageCategoriesSuccess:^(id model) {
+        [super hiddenMaskView];
+        weakself.goodListViewModel                              = (YBHomePageViewModel *)model;
+    } failureCallBack:^(id error) {
+        
+        /**
+         *  如果errorCode == -1009 无网络
+         */
+        if ([error code] == -1009) {
+            [self showBadRequestMaskView];
+        }
+        
+    }];
+}
+
+
+
+/**
+ 加载公共配置数据
+ */
+- (void)requestPublicConfigureData
+{
+    [[ZJHomePageService share] getpublicConfigureInformationSuccess:^(id objc, id requestInfo) {
+        [[YBPublicConfigure_LocalData share] savePublicConfigureInforWith:objc[@"data"]];
+    } fail:^(id error, id requestInfo) {
+        
+        /**
+         *  如果errorCode == -1009 无网络
+         */
+        if ([error code] == -1009) {
+        }
+    }];
+}
+
+- (ZJBaseView *)funcView
+{
+    if (!_funcView) {
+        
+        _funcView = [[ZJBaseView alloc] init];
+        _funcView.backgroundColor = [ZJCOLOR.color_c0 colorWithAlphaComponent:0];
+        
+        _toTopButton = [YBDefaultButton buttonImageWithImageFilePath:IMAGEFILEPATH_HOMEPAGE
+                                                          imageNamed:@"home_ custom"
+                                                                type:ZJProjectButtonSetImageDefault
+                                                              target:self
+                                                            selector:@selector(buttonClick:)];
+        _toTopButton.tag = 1003;
+        
+        _footprintsButton = [YBDefaultButton buttonImageWithImageFilePath:IMAGEFILEPATH_HOMEPAGE
+                                                               imageNamed:@"home_ history"
+                                                                     type:ZJProjectButtonSetImageDefault
+                                                                   target:self
+                                                                 selector:@selector(buttonClick:)];
+        _footprintsButton.tag = 1004;
+        
+        _customerButton = [YBDefaultButton buttonImageWithImageFilePath:IMAGEFILEPATH_HOMEPAGE
+                                                             imageNamed:@"home_ top"
+                                                                   type:ZJProjectButtonSetImageDefault
+                                                                 target:self
+                                                               selector:@selector(buttonClick:)];
+        _customerButton.tag = 1005;
+        
+        [_funcView addSubview:_toTopButton];
+        [_funcView addSubview:_customerButton];
+        [_funcView addSubview:_footprintsButton];
+        
+        [_toTopButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.right.mas_equalTo(_funcView);
+            make.height.mas_equalTo(_customerButton);
+        }];
+        
+        [_footprintsButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.mas_equalTo(_funcView);
+            make.top.mas_equalTo(_toTopButton.mas_bottom).mas_offset(ADJUST_PERCENT_FLOAT(10));
+            make.height.mas_equalTo(_customerButton);
+        }];
+        
+        [_customerButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(_footprintsButton.mas_bottom).mas_offset(ADJUST_PERCENT_FLOAT(10));
+            make.left.bottom.right.mas_equalTo(_funcView);
+        }];
+        
+        _funcView.alpha = 0;
+    }
+    return _funcView;
+}
+
+- (void)refreshCurrentGoodsData
+{
+    if (self.tabBarController.tabBar.ex_y == SCREEN_HEIGHT - self.tabBarController.tabBar.height) {
+        
+        /**
+         *  切换筛选器类型
+         */
+        self.categoriesController.type                          = YBGoodListViewCategories;
+        
+        [self.categoriesController.collectionView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.right.mas_equalTo(self.view);
+            make.top.mas_equalTo(self.view).mas_offset(STATUS_AND_NAVIGATION_HEIGHT);
+            make.height.mas_equalTo(ADJUST_PERCENT_FLOAT(goodListCategoriesViewHeight));
+        }];
+        
+        /**
+         *  下滑动画体
+         */
+        self.tabBarController.tabBar.ex_y                   = SCREEN_HEIGHT - self.tabBarController.tabBar.height;
+        self.funcView.alpha                                 = 0.f;
+        [self changeNavigationSubViewsAlpha:1.0];
+        [self.view layoutIfNeeded];
+        
+    }
+    [super refreshCurrentGoodsData];
+}
+
+#pragma mark  *** 扫码登录 ***
+/**
+ 扫码登录
+ */
+-(void)ScanlLoginButtonClick
+{
+    // 1、 获取摄像设备
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    if (device) {
+        AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        if (status == AVAuthorizationStatusNotDetermined) {
+            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                if (granted) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        YBScanViewController *scanloginvc = [YBScanViewController creatScanViewControllerWithUseEnum:loginScanType scanResultStr:^(NSString *scanResultStr) {
+                            [self requestPCLoginWith:scanResultStr];
+                        } extend:nil];
+                        [self.navigationController pushViewController:scanloginvc animated:YES];
+                        
+                    });
+                    YBLog(@"当前线程 - - %@", [NSThread currentThread]);
+                    
+                    // 用户第一次同意了访问相机权限
+                    YBLog(@"用户第一次同意了访问相机权限");
+                    
+                } else {
+                    
+                    // 用户第一次拒绝了访问相机权限
+                    YBLog(@"用户第一次拒绝了访问相机权限");
+                }
+            }];
+        } else if (status == AVAuthorizationStatusAuthorized) { // 用户允许当前应用访问相机
+            YBScanViewController *scanloginvc = [YBScanViewController creatScanViewControllerWithUseEnum:loginScanType scanResultStr:^(NSString *scanResultStr) {
+                [self requestPCLoginWith:scanResultStr];
+            } extend:nil];
+            [self.navigationController pushViewController:scanloginvc animated:YES];
+            
+//            YXPayZBarViewController *scanloginvc = [[YXPayZBarViewController alloc]init];
+//            scanloginvc.vctitle = @"扫一扫";
+//            scanloginvc.formePCPayurlBlock = ^(NSString *url){
+//                
+//                [self requestPCLoginWith:url];
+//            };
+//            [self.navigationController pushViewController:scanloginvc animated:YES];
+        } else if (status == AVAuthorizationStatusDenied) { // 用户拒绝当前应用访问相机
+            YBLog(@"%@", @"请去-> [设置 - 隐私 - 相机 - SGQRCodeExample] 打开访问开关");
+        } else if (status == AVAuthorizationStatusRestricted) {
+            YBLog(@"因为系统原因, 无法访问相册");
+        }
+    } else {
+        YBLog(@"%@", @"未检测到您的摄像头, 请在真机上测试");
+    }
+}
+
+-(void)requestPCLoginWith:(NSString *)url{
+    
+    [[ZJProjectNetRequestManager sharedNetRequestManager] connectNetWithUrl:url
+                                                         requestNetworkType:ZJProjectNetRequestPost
+                                                                 parameters:@{}
+                                                            timeoutInterval:6
+                                                               successBlock:^(id objc, id requestInfo) {
+                                                                   
+                                                               } failureBlock:^(id error, id requestInfo) {
+                                                                   
+                                                               }];
+    
+}
+
+- (void)checkAppVersion{
+    
+    [[ZJHomePageService share] checkVersionWithCurrentAppVersion:APPVERSION
+                                                         appType:@"1"
+                                                         success:^(id objc, id requestInfo) {
+                                                             YBLog(@"%@\n%@", objc, requestInfo);
+                                                                 
+                                                             YBVersionModel *versionModel = [YBVersionModel modelWithDictionary:objc[@"data"]];
+                                                             versionModel.currenVersion = APPVERSION;
+                                                             
+                                                             if (versionModel.isUpdate ==2) {
+                                                                 YBVersionUpgradeView *versionView = [YBVersionUpgradeView showVersionUpgradeVeiwWith:SCREEN_RECT];
+                                                                 versionView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+                                                                 [[UIApplication sharedApplication].keyWindow addSubview:versionView];
+                                                                 versionView.versionModle = versionModel;
+                                                             }
+                                                             
+                                                         } fail:^(id error, id requestInfo) {
+                                                             YBLog(@"%@\n%@", error, requestInfo);
+                                                         }];
+}
+
+
+
+@end

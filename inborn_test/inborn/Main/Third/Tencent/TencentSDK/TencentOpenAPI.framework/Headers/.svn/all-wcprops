@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/code/!svn/ver/2454/inshop/ios/trunk/inborn/inborn/Main/Third/Tencent/TencentSDK/TencentOpenAPI.framework/Headers
+END
+QQApiInterface.h
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/code/!svn/ver/2454/inshop/ios/trunk/inborn/inborn/Main/Third/Tencent/TencentSDK/TencentOpenAPI.framework/Headers/QQApiInterface.h
+END
+sdkdef.h
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/code/!svn/ver/2454/inshop/ios/trunk/inborn/inborn/Main/Third/Tencent/TencentSDK/TencentOpenAPI.framework/Headers/sdkdef.h
+END
+TencentOAuth.h
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/code/!svn/ver/2454/inshop/ios/trunk/inborn/inborn/Main/Third/Tencent/TencentSDK/TencentOpenAPI.framework/Headers/TencentOAuth.h
+END
+QQApiInterfaceObject.h
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/code/!svn/ver/2454/inshop/ios/trunk/inborn/inborn/Main/Third/Tencent/TencentSDK/TencentOpenAPI.framework/Headers/QQApiInterfaceObject.h
+END
+TencentOAuthObject.h
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/code/!svn/ver/2454/inshop/ios/trunk/inborn/inborn/Main/Third/Tencent/TencentSDK/TencentOpenAPI.framework/Headers/TencentOAuthObject.h
+END

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1421" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YBComsposeResultViewController">
+            <connections>
+                <outlet property="buttonHeightCons" destination="L2Q-0V-Q3E" id="jZb-rM-UjZ"/>
+                <outlet property="buttonWidthCons" destination="Wqf-pG-BpN" id="kyA-nu-pA0"/>
+                <outlet property="firstFuncButton" destination="zo9-Bm-WbC" id="e6R-Kd-cav"/>
+                <outlet property="firstFuncButtonTopMarginCons" destination="0em-CL-M6U" id="6uc-dk-X0b"/>
+                <outlet property="logoImageView" destination="52k-Mg-Fy3" id="GFu-cR-yjp"/>
+                <outlet property="logoImageViewHeightCons" destination="Z6h-Ds-yf1" id="DwC-wn-6lX"/>
+                <outlet property="logoImageViewTopMarginCons" destination="jE9-la-2Mc" id="COB-5F-mZJ"/>
+                <outlet property="logoImageViewWidthCons" destination="l1y-FC-Sny" id="fgf-AM-320"/>
+                <outlet property="secondFuncButton" destination="7yK-W9-rgC" id="n6n-iT-ocD"/>
+                <outlet property="secondFuncButtonTopMarginCons" destination="UlK-n9-WXg" id="984-Lf-0BB"/>
+                <outlet property="statusTipsLabel" destination="S8d-Vx-fSG" id="PYy-Sr-58p"/>
+                <outlet property="statusTipsLabelTopMarginCons" destination="V0O-QV-5Nd" id="FdF-52-hrB"/>
+                <outlet property="tipsLabel" destination="lZj-RJ-fu6" id="PPQ-om-e4W"/>
+                <outlet property="tipsLabelTopMarginCons" destination="tfH-B5-afH" id="Ilo-GO-wfX"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S8d-Vx-fSG" customClass="YBDefaultLabel">
+                    <rect key="frame" x="12" y="203.5" width="351" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="52k-Mg-Fy3" customClass="ZJBaseImageView">
+                    <rect key="frame" x="114" y="53.5" width="147" height="120"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="120" id="Z6h-Ds-yf1"/>
+                        <constraint firstAttribute="width" constant="147" id="l1y-FC-Sny"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zo9-Bm-WbC" customClass="YBDefaultButton">
+                    <rect key="frame" x="74.5" y="266.5" width="226" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="L2Q-0V-Q3E"/>
+                        <constraint firstAttribute="width" constant="226" id="Wqf-pG-BpN"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="firstFuncButtonClick:" destination="-1" eventType="touchUpInside" id="etC-9k-GeM"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7yK-W9-rgC" customClass="YBDefaultButton">
+                    <rect key="frame" x="74.5" y="334.5" width="226" height="44"/>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="secondFuncButtonClick:" destination="-1" eventType="touchUpInside" id="CMI-AT-0iX"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lZj-RJ-fu6" customClass="YBAttributedStringLabel">
+                    <rect key="frame" x="12" y="410.5" width="351" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="zo9-Bm-WbC" firstAttribute="top" secondItem="S8d-Vx-fSG" secondAttribute="bottom" constant="42" id="0em-CL-M6U"/>
+                <constraint firstItem="S8d-Vx-fSG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="PcM-eE-Mhr"/>
+                <constraint firstItem="7yK-W9-rgC" firstAttribute="top" secondItem="zo9-Bm-WbC" secondAttribute="bottom" constant="24" id="UlK-n9-WXg"/>
+                <constraint firstItem="S8d-Vx-fSG" firstAttribute="top" secondItem="52k-Mg-Fy3" secondAttribute="bottom" constant="30" id="V0O-QV-5Nd"/>
+                <constraint firstItem="zo9-Bm-WbC" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ZHo-aG-ItA"/>
+                <constraint firstItem="52k-Mg-Fy3" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="apC-gk-gmh"/>
+                <constraint firstAttribute="trailing" secondItem="S8d-Vx-fSG" secondAttribute="trailing" constant="12" id="fcA-ft-adm"/>
+                <constraint firstItem="7yK-W9-rgC" firstAttribute="height" secondItem="zo9-Bm-WbC" secondAttribute="height" id="gnz-pl-c34"/>
+                <constraint firstItem="52k-Mg-Fy3" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="53.5" id="jE9-la-2Mc"/>
+                <constraint firstAttribute="trailing" secondItem="lZj-RJ-fu6" secondAttribute="trailing" constant="12" id="kZX-Ot-L7e"/>
+                <constraint firstItem="7yK-W9-rgC" firstAttribute="width" secondItem="zo9-Bm-WbC" secondAttribute="width" id="l6K-mn-Kai"/>
+                <constraint firstItem="lZj-RJ-fu6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="mxR-Ve-njd"/>
+                <constraint firstItem="7yK-W9-rgC" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="nxH-Ip-zd6"/>
+                <constraint firstItem="lZj-RJ-fu6" firstAttribute="top" secondItem="7yK-W9-rgC" secondAttribute="bottom" constant="32" id="tfH-B5-afH"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

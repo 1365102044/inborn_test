@@ -1,0 +1,1 @@
+../../../YJFavorEmitter/YJFavorEmitter/YJFavorEmitterCell.h

@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/code/!svn/ver/2456/inshop/ios/trunk/inborn/inborn/Main/Third/AliPay/AliPaySDK/Util
+END
+base64.m
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/code/!svn/ver/2456/inshop/ios/trunk/inborn/inborn/Main/Third/AliPay/AliPaySDK/Util/base64.m
+END
+RSADataSigner.m
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/code/!svn/ver/2456/inshop/ios/trunk/inborn/inborn/Main/Third/AliPay/AliPaySDK/Util/RSADataSigner.m
+END
+MD5DataSigner.m
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/code/!svn/ver/2456/inshop/ios/trunk/inborn/inborn/Main/Third/AliPay/AliPaySDK/Util/MD5DataSigner.m
+END
+config.h
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/code/!svn/ver/2456/inshop/ios/trunk/inborn/inborn/Main/Third/AliPay/AliPaySDK/Util/config.h
+END
+DataVerifier.h
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/code/!svn/ver/2456/inshop/ios/trunk/inborn/inborn/Main/Third/AliPay/AliPaySDK/Util/DataVerifier.h
+END
+NSDataEx.h
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/code/!svn/ver/2456/inshop/ios/trunk/inborn/inborn/Main/Third/AliPay/AliPaySDK/Util/NSDataEx.h
+END
+DataVerifier.m
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/code/!svn/ver/2456/inshop/ios/trunk/inborn/inborn/Main/Third/AliPay/AliPaySDK/Util/DataVerifier.m
+END
+RSADataVerifier.h
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/code/!svn/ver/2456/inshop/ios/trunk/inborn/inborn/Main/Third/AliPay/AliPaySDK/Util/RSADataVerifier.h
+END
+NSDataEx.m
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/code/!svn/ver/2456/inshop/ios/trunk/inborn/inborn/Main/Third/AliPay/AliPaySDK/Util/NSDataEx.m
+END
+RSADataVerifier.m
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/code/!svn/ver/2456/inshop/ios/trunk/inborn/inborn/Main/Third/AliPay/AliPaySDK/Util/RSADataVerifier.m
+END
+DataSigner.h
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/code/!svn/ver/2456/inshop/ios/trunk/inborn/inborn/Main/Third/AliPay/AliPaySDK/Util/DataSigner.h
+END
+openssl_wrapper.h
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/code/!svn/ver/2456/inshop/ios/trunk/inborn/inborn/Main/Third/AliPay/AliPaySDK/Util/openssl_wrapper.h
+END
+base64.h
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/code/!svn/ver/2456/inshop/ios/trunk/inborn/inborn/Main/Third/AliPay/AliPaySDK/Util/base64.h
+END
+DataSigner.m
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/code/!svn/ver/2456/inshop/ios/trunk/inborn/inborn/Main/Third/AliPay/AliPaySDK/Util/DataSigner.m
+END
+RSADataSigner.h
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/code/!svn/ver/2456/inshop/ios/trunk/inborn/inborn/Main/Third/AliPay/AliPaySDK/Util/RSADataSigner.h
+END
+MD5DataSigner.h
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/code/!svn/ver/2456/inshop/ios/trunk/inborn/inborn/Main/Third/AliPay/AliPaySDK/Util/MD5DataSigner.h
+END
+openssl_wrapper.m
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/code/!svn/ver/2456/inshop/ios/trunk/inborn/inborn/Main/Third/AliPay/AliPaySDK/Util/openssl_wrapper.m
+END

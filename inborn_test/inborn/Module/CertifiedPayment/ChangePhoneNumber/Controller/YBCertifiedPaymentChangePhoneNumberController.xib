@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YBCertifiedPaymentChangePhoneNumberController">
+            <connections>
+                <outlet property="bankCardNumberLabel" destination="YSF-it-Oxv" id="sg3-gA-J35"/>
+                <outlet property="bankNameLabel" destination="HSN-wC-s3b" id="hgG-m0-oSL"/>
+                <outlet property="bottomLineView" destination="q6Z-wt-BNh" id="4HK-nm-LuN"/>
+                <outlet property="leftMarginCons" destination="sT8-Tj-zjb" id="HMb-Wb-zMZ"/>
+                <outlet property="phoneNumberTextField" destination="1m0-F4-sod" id="HRr-pI-WFA"/>
+                <outlet property="phoneNumberTitleLabel" destination="nsD-iT-9UR" id="SYO-RL-fpQ"/>
+                <outlet property="phoneNumberView" destination="oeb-wj-xtF" id="eFB-z0-pzi"/>
+                <outlet property="rightMarginCons" destination="eDV-vF-6SR" id="Z7Y-66-sxt"/>
+                <outlet property="topMarginCons" destination="sdW-u2-yQM" id="2PP-OZ-sW5"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewHeightCons" destination="O9V-zb-bXh" id="QJg-jd-2SI"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4JM-NX-7Bk" customClass="ZJBaseView">
+                    <rect key="frame" x="0.0" y="10" width="375" height="36"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HSN-wC-s3b" customClass="YBDefaultLabel">
+                            <rect key="frame" x="12" y="7" width="42" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YSF-it-Oxv" customClass="YBDefaultLabel">
+                            <rect key="frame" x="321" y="8" width="42" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q6Z-wt-BNh">
+                            <rect key="frame" x="12" y="35" width="363" height="1"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="ecM-Qa-niB"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="36" id="O9V-zb-bXh"/>
+                        <constraint firstItem="q6Z-wt-BNh" firstAttribute="leading" secondItem="HSN-wC-s3b" secondAttribute="leading" id="bhl-zZ-6Gz"/>
+                        <constraint firstAttribute="trailing" secondItem="YSF-it-Oxv" secondAttribute="trailing" constant="12" id="eDV-vF-6SR"/>
+                        <constraint firstAttribute="bottom" secondItem="q6Z-wt-BNh" secondAttribute="bottom" id="qhV-ce-uBE"/>
+                        <constraint firstItem="HSN-wC-s3b" firstAttribute="leading" secondItem="4JM-NX-7Bk" secondAttribute="leading" constant="12" id="sT8-Tj-zjb"/>
+                        <constraint firstAttribute="trailing" secondItem="q6Z-wt-BNh" secondAttribute="trailing" id="vHr-Zz-Jz3"/>
+                        <constraint firstItem="HSN-wC-s3b" firstAttribute="centerY" secondItem="4JM-NX-7Bk" secondAttribute="centerY" id="vyo-2h-Sg1"/>
+                        <constraint firstItem="YSF-it-Oxv" firstAttribute="centerY" secondItem="4JM-NX-7Bk" secondAttribute="centerY" id="wWp-qR-6gk"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oeb-wj-xtF" customClass="ZJBaseView">
+                    <rect key="frame" x="0.0" y="46" width="375" height="36"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nsD-iT-9UR" customClass="YBDefaultLabel">
+                            <rect key="frame" x="12" y="8" width="42" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1m0-F4-sod">
+                            <rect key="frame" x="175.5" y="0.0" width="187.5" height="36"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="nsD-iT-9UR" firstAttribute="centerY" secondItem="oeb-wj-xtF" secondAttribute="centerY" id="BBu-3p-Qlv"/>
+                        <constraint firstItem="1m0-F4-sod" firstAttribute="top" secondItem="oeb-wj-xtF" secondAttribute="top" id="WGD-b2-KqQ"/>
+                        <constraint firstItem="1m0-F4-sod" firstAttribute="centerY" secondItem="oeb-wj-xtF" secondAttribute="centerY" id="grh-IE-989"/>
+                        <constraint firstItem="1m0-F4-sod" firstAttribute="width" secondItem="oeb-wj-xtF" secondAttribute="width" multiplier="0.5" id="pDd-9N-frm"/>
+                        <constraint firstAttribute="bottom" secondItem="1m0-F4-sod" secondAttribute="bottom" id="upU-y1-g13"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="oeb-wj-xtF" firstAttribute="height" secondItem="4JM-NX-7Bk" secondAttribute="height" id="3x7-1S-WLY"/>
+                <constraint firstItem="nsD-iT-9UR" firstAttribute="leading" secondItem="HSN-wC-s3b" secondAttribute="leading" id="4f3-ds-KWj"/>
+                <constraint firstItem="4JM-NX-7Bk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="7Wd-KJ-tBK"/>
+                <constraint firstItem="1m0-F4-sod" firstAttribute="trailing" secondItem="YSF-it-Oxv" secondAttribute="trailing" id="C4B-yP-ay1"/>
+                <constraint firstItem="oeb-wj-xtF" firstAttribute="trailing" secondItem="4JM-NX-7Bk" secondAttribute="trailing" id="fjc-pR-yBO"/>
+                <constraint firstAttribute="trailing" secondItem="4JM-NX-7Bk" secondAttribute="trailing" id="gsQ-CX-8Ef"/>
+                <constraint firstItem="oeb-wj-xtF" firstAttribute="leading" secondItem="4JM-NX-7Bk" secondAttribute="leading" id="pyl-cG-6IV"/>
+                <constraint firstItem="4JM-NX-7Bk" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="sdW-u2-yQM"/>
+                <constraint firstItem="oeb-wj-xtF" firstAttribute="top" secondItem="4JM-NX-7Bk" secondAttribute="bottom" id="xWz-ia-31v"/>
+            </constraints>
+            <point key="canvasLocation" x="25.5" y="52.5"/>
+        </view>
+    </objects>
+</document>

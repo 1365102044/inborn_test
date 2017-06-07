@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="YBPaymentDeliveryTypeDefaultHeaderViewReuseIdentifier" id="FCy-nF-VBY" customClass="YBPaymentDeliveryTypeDefaultHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dsd-IW-hE4" customClass="ZJBaseView">
+                    <rect key="frame" x="12" y="119" width="363" height="1"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="gbu-OU-zd4"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJT-5L-yHe" customClass="YBDefaultLabel">
+                    <rect key="frame" x="12" y="26" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NaS-rv-Zy6" customClass="ZJBaseView">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="10"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="10" id="hrs-F7-M4M"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="dsd-IW-hE4" firstAttribute="leading" secondItem="FCy-nF-VBY" secondAttribute="leading" constant="12" id="6cL-1p-t6n"/>
+                <constraint firstItem="NaS-rv-Zy6" firstAttribute="leading" secondItem="FCy-nF-VBY" secondAttribute="leading" id="IIL-IY-7iB"/>
+                <constraint firstAttribute="trailing" secondItem="NaS-rv-Zy6" secondAttribute="trailing" id="WJX-TB-pln"/>
+                <constraint firstItem="NaS-rv-Zy6" firstAttribute="top" secondItem="FCy-nF-VBY" secondAttribute="top" id="X0q-6n-M80"/>
+                <constraint firstAttribute="trailing" secondItem="dsd-IW-hE4" secondAttribute="trailing" id="d2A-dN-OmS"/>
+                <constraint firstAttribute="bottom" secondItem="dsd-IW-hE4" secondAttribute="bottom" id="hGW-md-bh9"/>
+                <constraint firstItem="nJT-5L-yHe" firstAttribute="top" secondItem="NaS-rv-Zy6" secondAttribute="bottom" constant="16" id="hNH-Ai-sGi"/>
+                <constraint firstItem="nJT-5L-yHe" firstAttribute="leading" secondItem="dsd-IW-hE4" secondAttribute="leading" id="qHd-fz-MvU"/>
+            </constraints>
+            <connections>
+                <outlet property="bottomMarginLineView" destination="dsd-IW-hE4" id="Deg-rs-IDk"/>
+                <outlet property="labelTopCons" destination="hNH-Ai-sGi" id="QNS-dl-H3Y"/>
+                <outlet property="leftMarginCons" destination="6cL-1p-t6n" id="TQn-wd-7J5"/>
+                <outlet property="titleLabel" destination="nJT-5L-yHe" id="XBO-xy-ivQ"/>
+                <outlet property="topSpacingView" destination="NaS-rv-Zy6" id="0L7-Nj-Fop"/>
+                <outlet property="topSpacingViewHeightCons" destination="hrs-F7-M4M" id="TEa-lp-3IH"/>
+            </connections>
+            <point key="canvasLocation" x="-58.5" y="53"/>
+        </collectionReusableView>
+    </objects>
+</document>

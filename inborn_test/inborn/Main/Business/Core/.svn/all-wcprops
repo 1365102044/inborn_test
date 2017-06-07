@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/code/!svn/ver/3051/inshop/ios/trunk/inborn/inborn/Main/Business/Core
+END
+ZJOrderViewModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/code/!svn/ver/3051/inshop/ios/trunk/inborn/inborn/Main/Business/Core/ZJOrderViewModel.h
+END
+ZJPaymentViewModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/code/!svn/ver/2725/inshop/ios/trunk/inborn/inborn/Main/Business/Core/ZJPaymentViewModel.h
+END
+ZJOrderViewModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/code/!svn/ver/3051/inshop/ios/trunk/inborn/inborn/Main/Business/Core/ZJOrderViewModel.m
+END
+ZJPaymentViewModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/code/!svn/ver/2725/inshop/ios/trunk/inborn/inborn/Main/Business/Core/ZJPaymentViewModel.m
+END

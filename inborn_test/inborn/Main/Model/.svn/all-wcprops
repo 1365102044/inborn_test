@@ -1,0 +1,347 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/code/!svn/ver/4236/inshop/ios/trunk/inborn/inborn/Main/Model
+END
+YBGoodPartModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/code/!svn/ver/3651/inshop/ios/trunk/inborn/inborn/Main/Model/YBGoodPartModel.h
+END
+YBAppraisalModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/code/!svn/ver/3760/inshop/ios/trunk/inborn/inborn/Main/Model/YBAppraisalModel.m
+END
+YBRefundModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/code/!svn/ver/3174/inshop/ios/trunk/inborn/inborn/Main/Model/YBRefundModel.h
+END
+YBMessageModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/code/!svn/ver/4076/inshop/ios/trunk/inborn/inborn/Main/Model/YBMessageModel.h
+END
+YBGoodPartModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/code/!svn/ver/2552/inshop/ios/trunk/inborn/inborn/Main/Model/YBGoodPartModel.m
+END
+YBGoodListViewCategoriesModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/code/!svn/ver/2202/inshop/ios/trunk/inborn/inborn/Main/Model/YBGoodListViewCategoriesModel.h
+END
+YBVersionModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/code/!svn/ver/3633/inshop/ios/trunk/inborn/inborn/Main/Model/YBVersionModel.h
+END
+YBRefundModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/code/!svn/ver/3271/inshop/ios/trunk/inborn/inborn/Main/Model/YBRefundModel.m
+END
+YBGoodModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/code/!svn/ver/3902/inshop/ios/trunk/inborn/inborn/Main/Model/YBGoodModel.h
+END
+YBMessageModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/code/!svn/ver/4076/inshop/ios/trunk/inborn/inborn/Main/Model/YBMessageModel.m
+END
+YBGoodListViewCategoriesModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/code/!svn/ver/2166/inshop/ios/trunk/inborn/inborn/Main/Model/YBGoodListViewCategoriesModel.m
+END
+YBVersionModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/code/!svn/ver/3633/inshop/ios/trunk/inborn/inborn/Main/Model/YBVersionModel.m
+END
+YBBranceModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/code/!svn/ver/3735/inshop/ios/trunk/inborn/inborn/Main/Model/YBBranceModel.h
+END
+YBGoodModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/code/!svn/ver/3726/inshop/ios/trunk/inborn/inborn/Main/Model/YBGoodModel.m
+END
+YBRouteModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/code/!svn/ver/3051/inshop/ios/trunk/inborn/inborn/Main/Model/YBRouteModel.h
+END
+YBGoodsDeatilModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/code/!svn/ver/4219/inshop/ios/trunk/inborn/inborn/Main/Model/YBGoodsDeatilModel.h
+END
+.DS_Store
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/code/!svn/ver/1790/inshop/ios/trunk/inborn/inborn/Main/Model/.DS_Store
+END
+YBBranceModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/code/!svn/ver/3735/inshop/ios/trunk/inborn/inborn/Main/Model/YBBranceModel.m
+END
+YBMeMainDataModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/code/!svn/ver/3651/inshop/ios/trunk/inborn/inborn/Main/Model/YBMeMainDataModel.h
+END
+YBGoodsDeatilModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/code/!svn/ver/4204/inshop/ios/trunk/inborn/inborn/Main/Model/YBGoodsDeatilModel.m
+END
+YBRouteModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/code/!svn/ver/3051/inshop/ios/trunk/inborn/inborn/Main/Model/YBRouteModel.m
+END
+YBComposeModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/code/!svn/ver/3651/inshop/ios/trunk/inborn/inborn/Main/Model/YBComposeModel.h
+END
+YBMeMainDataModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/code/!svn/ver/2545/inshop/ios/trunk/inborn/inborn/Main/Model/YBMeMainDataModel.m
+END
+YBPageDataModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/code/!svn/ver/2804/inshop/ios/trunk/inborn/inborn/Main/Model/YBPageDataModel.h
+END
+YBOrderListModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/code/!svn/ver/2888/inshop/ios/trunk/inborn/inborn/Main/Model/YBOrderListModel.h
+END
+YBMemberModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/code/!svn/ver/2759/inshop/ios/trunk/inborn/inborn/Main/Model/YBMemberModel.h
+END
+YBComposeModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/code/!svn/ver/3661/inshop/ios/trunk/inborn/inborn/Main/Model/YBComposeModel.m
+END
+YBOrderModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/code/!svn/ver/4236/inshop/ios/trunk/inborn/inborn/Main/Model/YBOrderModel.h
+END
+YBPageDataModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/code/!svn/ver/2337/inshop/ios/trunk/inborn/inborn/Main/Model/YBPageDataModel.m
+END
+YBMemberModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/code/!svn/ver/2588/inshop/ios/trunk/inborn/inborn/Main/Model/YBMemberModel.m
+END
+YBGoodListAdsModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/code/!svn/ver/3633/inshop/ios/trunk/inborn/inborn/Main/Model/YBGoodListAdsModel.h
+END
+YBPaymentResultModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/code/!svn/ver/3438/inshop/ios/trunk/inborn/inborn/Main/Model/YBPaymentResultModel.h
+END
+YBOrderListModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/code/!svn/ver/2888/inshop/ios/trunk/inborn/inborn/Main/Model/YBOrderListModel.m
+END
+YBPaymentServiceSignModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/code/!svn/ver/3009/inshop/ios/trunk/inborn/inborn/Main/Model/YBPaymentServiceSignModel.h
+END
+YBOrderModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/code/!svn/ver/4219/inshop/ios/trunk/inborn/inborn/Main/Model/YBOrderModel.m
+END
+YBPaymentResultModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/code/!svn/ver/3438/inshop/ios/trunk/inborn/inborn/Main/Model/YBPaymentResultModel.m
+END
+YBGoodListAdsModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/code/!svn/ver/2202/inshop/ios/trunk/inborn/inborn/Main/Model/YBGoodListAdsModel.m
+END
+YBPaymentServiceSignModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/code/!svn/ver/3466/inshop/ios/trunk/inborn/inborn/Main/Model/YBPaymentServiceSignModel.m
+END
+YBUploadImageModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/code/!svn/ver/4115/inshop/ios/trunk/inborn/inborn/Main/Model/YBUploadImageModel.h
+END
+YBButton.h
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/code/!svn/ver/3817/inshop/ios/trunk/inborn/inborn/Main/Model/YBButton.h
+END
+YBUploadImageModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/code/!svn/ver/4074/inshop/ios/trunk/inborn/inborn/Main/Model/YBUploadImageModel.m
+END
+YBGoodListGoodModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/code/!svn/ver/3785/inshop/ios/trunk/inborn/inborn/Main/Model/YBGoodListGoodModel.h
+END
+YBMySellOutModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/code/!svn/ver/4152/inshop/ios/trunk/inborn/inborn/Main/Model/YBMySellOutModel.h
+END
+YBButton.m
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/code/!svn/ver/3726/inshop/ios/trunk/inborn/inborn/Main/Model/YBButton.m
+END
+YBGoodListCollectionModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/code/!svn/ver/3089/inshop/ios/trunk/inborn/inborn/Main/Model/YBGoodListCollectionModel.h
+END
+YBLikeAndRecordBaseModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/code/!svn/ver/3200/inshop/ios/trunk/inborn/inborn/Main/Model/YBLikeAndRecordBaseModel.h
+END
+YBLogitcsInforModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/code/!svn/ver/3052/inshop/ios/trunk/inborn/inborn/Main/Model/YBLogitcsInforModel.h
+END
+YBGoodListGoodModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/code/!svn/ver/3807/inshop/ios/trunk/inborn/inborn/Main/Model/YBGoodListGoodModel.m
+END
+YBMySellOutModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/code/!svn/ver/4190/inshop/ios/trunk/inborn/inborn/Main/Model/YBMySellOutModel.m
+END
+YBBankCardModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/code/!svn/ver/3028/inshop/ios/trunk/inborn/inborn/Main/Model/YBBankCardModel.h
+END
+YBGoodListCollectionModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/code/!svn/ver/3089/inshop/ios/trunk/inborn/inborn/Main/Model/YBGoodListCollectionModel.m
+END
+YBLikeAndRecordBaseModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/code/!svn/ver/2820/inshop/ios/trunk/inborn/inborn/Main/Model/YBLikeAndRecordBaseModel.m
+END
+YBAddressAndPickPersonModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/code/!svn/ver/3691/inshop/ios/trunk/inborn/inborn/Main/Model/YBAddressAndPickPersonModel.h
+END
+YBLogitcsInforModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/code/!svn/ver/4231/inshop/ios/trunk/inborn/inborn/Main/Model/YBLogitcsInforModel.m
+END
+YBBankCardModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/code/!svn/ver/3168/inshop/ios/trunk/inborn/inborn/Main/Model/YBBankCardModel.m
+END
+YBAddressAndPickPersonModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/code/!svn/ver/2667/inshop/ios/trunk/inborn/inborn/Main/Model/YBAddressAndPickPersonModel.m
+END
+YBAppraisalModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/code/!svn/ver/3760/inshop/ios/trunk/inborn/inborn/Main/Model/YBAppraisalModel.h
+END

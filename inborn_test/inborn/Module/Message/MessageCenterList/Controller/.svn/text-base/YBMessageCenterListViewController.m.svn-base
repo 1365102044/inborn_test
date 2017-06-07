@@ -1,0 +1,180 @@
+//
+//  YBMessageCenterListViewController.m
+//  inborn
+//
+//  Created by 刘文强 on 2017/4/1.
+//  Copyright © 2017年 inborn. All rights reserved.
+//
+
+#import "YBMessageCenterListViewController.h"
+#import "YBMessageCenterListTableViewCell.h"
+#import "YBMessageService.h"
+#import "YBMessageSystemListViewController.h"
+#import "YBMessageOrderNewsListViewController.h"
+#import "MQCustomerServiceManager.h"
+#import "YBMessageModel.h"
+#import "User_LocalData.h"
+#import "ZJBaseNavigationController.h"
+#import "YBLoginViewController.h"
+static NSString *MESSAGECENTERLISTCELLINDIFT = @"MESSAGECENTERLISTCELLINDIFT";
+@interface YBMessageCenterListViewController ()<UITableViewDelegate,UITableViewDataSource>
+@property(nonatomic, strong) UITableView *tableview;
+@property(nonatomic,strong) NSArray * dataArr;
+@property(nonatomic,strong) YBMessageModel * dataModle;
+@end
+
+@implementation YBMessageCenterListViewController
+
+#pragma mark - First.通知
+
+#pragma mark - Second.赋值
+
+#pragma mark - Third.点击事件
+
+/**
+ 请求消息未读数
+ */
+- (void)loadNewsNumber
+{
+    [[YBMessageService share] getMessageListNureadNewsNmuberInforSuccess:^(id objc, id requestInfo) {
+        self.dataModle = [YBMessageModel modelWithDictionary:objc[@"data"]];
+        [self.tableview reloadData];
+    } fail:^(id error, id requestInfo) {
+    }];
+}
+
+#pragma mark - Fourth.代理方法
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.dataArr.count;
+}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    YBMessageCenterListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    if (!cell) {
+        cell = [[YBMessageCenterListTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MESSAGECENTERLISTCELLINDIFT];
+        cell.dataArr = self.dataArr[indexPath.row];
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (indexPath.row ==1) {
+        cell.nuReadNumber = _dataModle.orderMsg;
+    }else if (indexPath.row == 2){
+        cell.nuReadNumber = _dataModle.identifyMsg;
+    }else if (indexPath.row == 3){
+        cell.nuReadNumber = _dataModle.depositMsg;
+    }else if (indexPath.row == 4){
+        cell.nuReadNumber = _dataModle.sysMsg;
+    }
+    if (indexPath.row == 4) {
+        cell.lineview.hidden = YES;
+    }else{
+        cell.lineview.hidden = NO;
+    }
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) {
+        [[MQCustomerServiceManager share] showCustomerServiceWithViewController:self];
+    }
+    
+    if (indexPath.row >0) {
+        
+        if(![User_LocalData getTokenId]){
+            loginTypeEnum type = generalLoginType;
+            if ([User_LocalData getUserData].mobile) {
+                type = haveAcountLoginType;
+                YBLoginViewController *loginVC = [YBLoginViewController creatLoginViewControllerWithType:type
+                                                                                                  extend:nil];
+                ZJBaseNavigationController *navi = [[ZJBaseNavigationController alloc] initWithRootViewController:loginVC];
+                [self presentViewController:navi animated:YES completion:nil];
+            }
+            return;
+            
+        }else{
+            if (indexPath.row == 1) {
+                YBMessageOrderNewsListViewController *ordervc = [[YBMessageOrderNewsListViewController alloc]init];
+                [self.navigationController pushViewController:ordervc animated:YES];
+            }
+            if (indexPath.row == 2) {
+                YBMessageOrderNewsListViewController *ordervc = [[YBMessageOrderNewsListViewController alloc]init];
+                ordervc.sourtype = @"jianding";
+                [self.navigationController pushViewController:ordervc animated:YES];
+            }
+            if (indexPath.row == 3) {
+                YBMessageOrderNewsListViewController *ordervc = [[YBMessageOrderNewsListViewController alloc]init];
+                ordervc.sourtype = @"deposit";
+                [self.navigationController pushViewController:ordervc animated:YES];
+            }
+            if (indexPath.row == 4) {
+                YBMessageSystemListViewController * systemvc = [[YBMessageSystemListViewController alloc]init];
+                [self.navigationController pushViewController:systemvc animated:YES];
+            }
+        }
+        
+    }
+}
+
+#pragma mark - Fifth.控制器生命周期
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    self.title = @"消息中心";
+    self.view.backgroundColor = ZJCOLOR.color_c12;
+    self.dataArr = @[@[@"胤宝客服",@"查看您跟客服的沟通信息"],
+                     @[@"订单通知",@"查看您的订单信息"],
+                     @[@"鉴定通知",@"查看您的鉴定订单信息"],
+                     @[@"担保金通知",@"查看您的担保金订单"],
+                     @[@"系统消息",@"查看您的系统消息"]];
+    [self.view addSubview:self.tableview];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.ex_y                   = SCREEN_HEIGHT - self.tabBarController.tabBar.height;
+    
+    self.tabBarController.tabBar.hidden = NO;
+    if ([User_LocalData getTokenId]) {
+        [self loadNewsNumber];
+    }
+}
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+    self.title = @"消息";
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+#pragma mark - Sixth.界面配置
+
+#pragma mark - Seventh.懒加载
+
+-(UITableView *)tableview{
+    
+    if (!_tableview) {
+        _tableview = [[UITableView alloc]initWithFrame:self.view.bounds];
+        _tableview.delegate = self;
+        _tableview.dataSource = self;
+        _tableview.rowHeight = ADJUST_PERCENT_FLOAT(60);
+        _tableview.backgroundColor = ZJCOLOR.color_c12;
+        _tableview.tableFooterView = [[UIView alloc]init];
+        UIView *headerview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ADJUST_PERCENT_FLOAT(10))];
+        headerview.backgroundColor = ZJCOLOR.color_c12;
+        _tableview.tableHeaderView = headerview;
+        _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
+    return _tableview;
+}
+
+@end

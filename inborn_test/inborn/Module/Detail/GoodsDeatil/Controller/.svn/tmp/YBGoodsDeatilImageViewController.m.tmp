@@ -1,0 +1,516 @@
+//
+//  YBGoodsDeatilImageViewController.m
+//  inborn
+//
+//  Created by 刘文强 on 2017/3/22. 淡淡的
+//  Copyright © 2017年 inborn. All rights reserved.
+//
+
+#import "YBGoodsDeatilImageViewController.h"
+#import "YBGoodsDeatilImageBoomBtnView.h"
+//#import "YBGoodsDeatilImageBoomStatusView.h"
+#import "YBGoodsDeatilImageTopView.h"
+#import "YBGoodsDeatilViewController.h"
+#import "ZJBaseNavigationController.h"
+#import "YBPhotoBrowserViewController.h"
+#import "YBGoodsDeatilService.h"
+#import "YBGoodsDeatilModel.h"
+#import "YBConfirmOrderViewController.h"
+#import "YBOrderDetailTableViewController.h"
+#import "MQCustomerServiceManager.h"
+#import "YXShareSDKManager.h"
+#import "User_LocalData.h"
+#import "YBLoginViewController.h"
+#import "ZJBaseNavigationController.h"
+#import "YBTimerManager.h"
+#import "YBGoodsDeatilImageBoomsStatusView.h"
+#import "YBTopAlert.h"
+
+@interface YBGoodsDeatilImageViewController ()<PBViewControllerDelegate,PBViewControllerDataSource>
+/**
+ 底部视图
+ */
+@property(nonatomic,strong) YBGoodsDeatilImageBoomBtnView * BoomBtnView;
+@property(nonatomic,strong) YBGoodsDeatilImageBoomsStatusView * BoomStatusView;
+@property(nonatomic,strong) ZJBaseView * boomBackBigView;
+/**
+ 顶部视图
+ */
+@property(nonatomic,strong) YBGoodsDeatilImageTopView * TopView;
+@property(nonatomic,strong) NSString * goodsId;
+@property(nonatomic,strong) YBGoodsDeatilModel * goodsDeatilDataModel;
+
+/**
+ 是否 点击过图片 yes 是； no 没有
+ */
+@property(nonatomic,assign) BOOL  isShowAllViewBool;
+
+@property(nonatomic,strong) YBPhotoBrowserViewController * photoBroseVC;
+
+@property(nonatomic,strong) NSArray * goodsImageArr;
+
+/**
+ 是否是预览
+ */
+@property (nonatomic, assign) BOOL isPreview;
+
+@end
+
+@implementation YBGoodsDeatilImageViewController
+
+#pragma mark - First.通知
+
+#pragma mark - Second.赋值
+
+#pragma mark - Third.点击事件
+
+/**
+ 点击 状态view上的事件
+ */
+- (void)clickstatusViewBtnWithBtn:(NSString *)str
+{
+    if (self.isPreview) {
+        
+        /**
+         *  当为预览时，禁用点击事件
+         */
+        return;
+    }
+    
+    if ([str isEqualToString:@"开拍提醒"]) {
+        return;
+    }else if ([str isEqualToString:@"已售罄"]) {
+        return;
+    }else if ([str isEqualToString:@"加一口"]) {
+        return;
+    }else if ([str isEqualToString:@"付款中"]) {
+        return;
+    }else if ([str isEqualToString:@"已下架"]) {
+        return;
+    }
+    self.navigationController.navigationBar.hidden = NO;
+    
+    if (![User_LocalData getTokenId]||[User_LocalData getTokenId].length == 0) {
+        loginTypeEnum type = generalLoginType;
+        if ([User_LocalData getUserData].mobile) {
+            type = haveAcountLoginType;
+        }
+        YBLoginViewController *loginvc = [YBLoginViewController creatLoginViewControllerWithType:type extend:nil];
+        ZJBaseNavigationController *nav = [[ZJBaseNavigationController alloc]initWithRootViewController:loginvc];
+        [self presentViewController:nav animated:YES completion:nil];
+        return;
+    }
+    
+    /**
+     自己的商品不能购买
+     */
+    if ([str isEqualToString:@"马上抢"] ||
+        [str isEqualToString:@"定金购"] ||
+        [str isEqualToString:@"立即付定金"]) {
+        NSString *userid = [User_LocalData getUserData].userId;
+        if ([self.goodsDeatilDataModel.sellerId isEqualToString:[NSString stringWithFormat:@"%@",userid]]) {
+            [SYSTEM_NOTIFICATIONCENTER addObserver:self selector:@selector(hidenTopAlearVeiwRecovery) name:@"RecoveryGoodsImageDeatilViewFrameWhenHiddenTopAlearView" object:nil];
+            [[YBTopAlert sharedAlert] showAlertWithTitleStringKey:ZJSTRING(@"提示")
+                                                    tipsStringKey:ZJSTRING(@"不能购买自己的商品")
+                                                             type:YBTopAlertError
+                                               eventCallBackBlock:^(id sender) {
+                                                   [self hidenTopAlearVeiwRecovery];
+                                               }];
+            return;
+        }
+    }
+    
+    if ([str isEqualToString:@"马上抢"]) {
+        YBConfirmOrderViewController *comfirVC = [YBConfirmOrderViewController confirmOrderViewControllerWithGoodId:_goodsId extend:nil];
+        [self.navigationController pushViewController:comfirVC animated:YES];
+        
+    }else if ([str isEqualToString:@"定金购"]) {
+        YBConfirmOrderViewController *comfirVC = [YBConfirmOrderViewController confirmOrderViewControllerWithGoodId:_goodsId extend:@"1"];
+        [self.navigationController pushViewController:comfirVC animated:YES];
+    }else if ([str isEqualToString:@"立即付定金"]) {
+        YBConfirmOrderViewController *comfirVC = [YBConfirmOrderViewController confirmOrderViewControllerWithGoodId:_goodsId extend:@"1"];
+        [self.navigationController pushViewController:comfirVC animated:YES];
+    }else if ([str isEqualToString:@"继续付款"]) {
+        YBOrderDetailTableViewController * orderdeatilvc = [YBOrderDetailTableViewController orderDetailTableViewControllerWithOrderId:self.goodsDeatilDataModel.orderId extend:self];
+        ZJBaseNavigationController *nav = [[ZJBaseNavigationController alloc]initWithRootViewController:orderdeatilvc];
+        orderdeatilvc.modalTransitionStyle =  UIModalTransitionStyleCrossDissolve;
+        [self presentViewController:nav animated:YES completion:nil];
+        
+    }else if ([str isEqualToString:@"找客服"]) {
+        [[MQCustomerServiceManager  share] showCustomerServiceWithViewController:self];
+    }
+}
+/**
+ topalearview隐藏的时候复原frame
+ */
+- (void)hidenTopAlearVeiwRecovery
+{
+    self.navigationController.navigationBar.hidden = YES;
+    [UIView animateWithDuration:0.25 animations:^{
+        self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    }];
+}
+
+/**
+ 功能视图上的点击事件
+ btn.tag:
+ 1          切换详情界面
+ 2          客服
+ 3          分享
+ 4          喜欢
+ */
+- (void)BoomBtnViewSelectorWithTag:(NSInteger )btnTag
+{
+    if (self.isPreview) {
+        
+        /**
+         *  当为预览时，禁用点击事件
+         */
+        return;
+    }
+    
+    if (btnTag ==1) {
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (self.isShowAllViewBool) {
+                [self recoveryHiddentopandboomview];
+                self.isShowAllViewBool = !self.isShowAllViewBool;
+            }
+        });
+        
+        YBGoodsDeatilViewController *deatilVC = [YBGoodsDeatilViewController creatGoodsDeatilViewControllergoodsId:_goodsId Extend:nil];
+        ZJBaseNavigationController *nav = [[ZJBaseNavigationController alloc]initWithRootViewController:deatilVC];
+        deatilVC.modalTransitionStyle =  UIModalTransitionStyleFlipHorizontal;
+        [self presentViewController:nav animated:YES completion:nil];
+    }else if (btnTag == 2)
+    {
+        [[MQCustomerServiceManager share] showCustomerServiceWithViewController:self];
+        [[MQCustomerServiceManager share] sendUrlMessage:[NSString stringWithFormat:@"商品名称：%@\n商品编号：%@\n商品地址：%@",
+                                                          self.goodsDeatilDataModel.goodsName,
+                                                          self.goodsDeatilDataModel.goodsId,
+                                                          [NSString stringWithFormat:@"%@/detail/detail.html;params=%@",
+                                                           BASE_M_URL,
+                                                           self.goodsDeatilDataModel.goodsId]]];
+    }else if (btnTag == 3){
+        
+        /**
+         *  分享
+         */
+        [[YXShareSDKManager sharedManager] shareGoodWithImageURLString:self.goodsDeatilDataModel.squareImage
+                                                          andGoodNamed:self.goodsDeatilDataModel.goodsName
+                                                         andGoodDetail:self.goodsDeatilDataModel.sellerDesc
+                                                             andProdId:self.goodsId
+                                                          andProdBidId:@""
+                                                     andViewController:self];
+        
+    }else if (btnTag == 4){
+   
+        
+        if (![User_LocalData getTokenId]||[User_LocalData getTokenId].length == 0) {
+            loginTypeEnum type = generalLoginType;
+            if ([User_LocalData getUserData].mobile) {
+                type = haveAcountLoginType;
+            }
+            YBLoginViewController *loginvc = [YBLoginViewController creatLoginViewControllerWithType:type extend:nil];
+            ZJBaseNavigationController *nav = [[ZJBaseNavigationController alloc]initWithRootViewController:loginvc];
+            [self presentViewController:nav animated:YES completion:nil];
+            return;
+        }
+        
+        if (self.goodsDeatilDataModel.isCollect==1) {
+            /**
+             取消关注
+             */
+            [[YBGoodsDeatilService share] cancleCollectGoodsInGoodsDeatilWithgoodsId:_goodsId
+                                                                             Success:^(id objc, id requestInfo) {
+                                                                                 
+                                                                                 [self.BoomBtnView setIsCollectChangeNumber:NO];
+                                                                                 self.goodsDeatilDataModel.isCollect = 0;
+                                                                                 
+                                                                             } fail:^(id error, id requestInfo) {
+                                                                             }];
+        }else {
+            
+            /**
+             添加关注
+             */
+            [[YBGoodsDeatilService share] addCollectGoodsInGoodsDeatilWithgoodsId:_goodsId
+                                                                          Success:^(id objc, id requestInfo) {
+                                                                              
+                                                                              [self.BoomBtnView setIsCollectChangeNumber:YES];
+                                                                              
+                                                                          } fail:^(id error, id requestInfo) {
+                                                                          }];
+        }
+    }
+}
+
+
+#pragma mark - Fourth.代理方法
+
+#pragma mark  *** 网络请求
+- (void)loadGoodsDeatilBigImageData
+{
+    [[YBGoodsDeatilService share] getGoodsDeatilBigImageInfoWithgoodsId:_goodsId
+                                                              isPreview:self.isPreview                                                                 Success:^(id objc, id requestInfo) {
+                                                                  
+                                                                  self.goodsDeatilDataModel = [YBGoodsDeatilModel modelWithDictionary:objc[@"data"]];
+                                                                  [self setModelToView];
+                                                              } fail:^(id error, id requestInfo) {
+                                                                  
+                                                              }];
+}
+
+/**
+ 给view 赋值
+ */
+- (void)setModelToView
+{
+    self.TopView.goodsDeatilModel = self.goodsDeatilDataModel;
+    self.BoomBtnView.goodsDeatilModel= self.goodsDeatilDataModel;
+    self.BoomStatusView.goodsDeatilModel = self.goodsDeatilDataModel;
+    
+    NSMutableArray *goodsImageArr  = [NSMutableArray array];
+    for (YBGoodsImagesModel *modle in self.goodsDeatilDataModel.goodsImgs) {
+        [goodsImageArr addObject:modle.imgUrl];
+    }
+    self.goodsImageArr = goodsImageArr;
+    [self.photoBroseVC.view removeFromSuperview];
+    self.photoBroseVC = [YBPhotoBrowserViewController photoBrowserViewControllerImageUrlStingArray:goodsImageArr];
+    self.photoBroseVC.imageUrlStringArray = goodsImageArr;
+    self.photoBroseVC.pb_delegate = self;
+    self.photoBroseVC.pb_dataSource = self;
+    self.photoBroseVC.view.frame = self.view.bounds;
+    [self addChildViewController:self.photoBroseVC];
+    [self.view addSubview:self.photoBroseVC.view];
+    [self.view sendSubviewToBack:self.photoBroseVC.view];
+    
+}
+
+/**
+ 点击图片
+ */
+- (void)viewController:(PBViewController *)viewController didSingleTapedPageAtIndex:(NSInteger)index presentedImage:(UIImage *)presentedImage{
+    
+    if (self.isShowAllViewBool) {
+        [self recoveryHiddentopandboomview];
+    }else{
+        [self clickHiddentopandboomview];
+    }
+    self.isShowAllViewBool = !self.isShowAllViewBool;
+}
+
+/**
+ 恢复 部分视图 隐藏的状态（no）
+ */
+- (void)recoveryHiddentopandboomview
+{
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        
+        self.TopView.ex_y = 0;
+        self.BoomStatusView.ex_y = _boomBackBigView.height - _BoomBtnView.height*2 - ADJUST_PERCENT_FLOAT(6);
+        self.BoomStatusView.alpha = 1;
+        self.TopView.tempview.alpha = 1;
+    }];
+    
+}
+
+/**
+ 点击 隐藏部分view的状态
+ */
+- (void)clickHiddentopandboomview
+{
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        
+        self.TopView.ex_y = - ADJUST_PERCENT_FLOAT(66);
+        self.BoomStatusView.ex_y = _boomBackBigView.height;
+        self.BoomStatusView.alpha = 0;
+        self.TopView.tempview.alpha = 0;
+    }];
+    
+    
+}
+
+/**
+ PBviewController-delegate
+ */
+- (NSInteger)numberOfPagesInViewController:(PBViewController *)viewController
+{
+    return self.goodsImageArr.count ? self.goodsImageArr.count : 1;
+}
+- (void)viewController:(PBViewController *)viewController presentImageView:(UIImageView *)imageView forPageAtIndex:(NSInteger)index progressHandler:(void (^)(NSInteger, NSInteger))progressHandler
+{
+    if (!self.goodsImageArr.count) {
+        return;
+    }
+    NSString *imageUrl = self.goodsImageArr[index];
+    [imageView sd_setImageWithURL:[NSURL URLWithString: ZJIMAGEURLSTRING(ZJProjectImageURLStringDefault,
+                                                                         imageUrl)]
+                 placeholderImage:nil
+                          options:SDWebImageRetryFailed];
+    
+    /**
+     告诉 view index
+     */
+    [SYSTEM_NOTIFICATIONCENTER postNotificationName:@"scrollerImageVCindex" object:nil userInfo:@{@"scrollerindex":[NSString stringWithFormat:@"%ld",(long)index]}];
+}
+
+- (void)addImageViewController
+{
+    /**
+     添加底部视图
+     */
+    [self.view addSubview:self.boomBackBigView];
+    WEAKSELF(self);
+    [self.boomBackBigView addSubview:self.BoomBtnView];
+    self.BoomBtnView.clickDeatilImBoomBtnViewBlock = ^(NSInteger tag){
+        [weakself BoomBtnViewSelectorWithTag:tag];
+    };
+    [self.boomBackBigView addSubview:self.BoomStatusView];
+    self.BoomStatusView.clickBtnBlock = ^(NSString *str) {
+        [weakself clickstatusViewBtnWithBtn:str];
+    };
+    
+    /**
+     添加顶部视图
+     */
+    
+    [self.view addSubview:self.TopView];
+    
+    self.TopView.getMaxHeightBlock = ^(CGFloat maxheight){
+        weakself.TopView.height = maxheight ? maxheight : ADJUST_PERCENT_FLOAT(150);
+    };
+    self.TopView.clickDeatilImTopbtnBlock = ^(){
+        [weakself.navigationController popViewControllerAnimated:YES];
+        [weakself dismissViewControllerAnimated:YES completion:nil];
+    };
+    
+    self.TopView.frame = CGRectMake(0, 0, SCREEN_WIDTH, ADJUST_PERCENT_FLOAT(150));
+    self.boomBackBigView.frame = CGRectMake(0, SCREEN_HEIGHT- ADJUST_PERCENT_FLOAT(100), SCREEN_WIDTH, ADJUST_PERCENT_FLOAT(100));
+    self.BoomBtnView.frame = CGRectMake(0, _boomBackBigView.height - ADJUST_PERCENT_FLOAT(44), SCREEN_WIDTH, ADJUST_PERCENT_FLOAT(44));
+    self.BoomStatusView.frame =CGRectMake(0, _boomBackBigView.height - _BoomBtnView.height*2 - ADJUST_PERCENT_FLOAT(6), SCREEN_WIDTH, ADJUST_PERCENT_FLOAT(44));
+}
+
+
+#pragma mark - Fifth.控制器生命周期
+
+/**
+ 初始化
+ */
++ (instancetype)creatGoodsDeatilImageViewControllerWithGoodsId:(NSString *)GoodsId
+                                                        Extend:(id)extend;
+{
+    YBGoodsDeatilImageViewController *viewcontroller = [[YBGoodsDeatilImageViewController alloc]init];
+    viewcontroller.goodsId                           = GoodsId;
+    if ([extend isKindOfClass:[NSDictionary class]]) {
+        viewcontroller.isPreview = [extend[@"isPreview"] boolValue];
+    }
+    return viewcontroller;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = YES;
+    
+    [self loadGoodsDeatilBigImageData];
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    self.navigationController.navigationBar.hidden = NO;
+    
+    [[YBTimerManager shareTimer] stopTimer];
+    
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.view.backgroundColor = [UIColor blackColor];
+
+    
+    [self addImageViewController];
+}
+
+
+#pragma mark - Sixth.界面配置
+
+#pragma mark - Seventh.懒加载
+/**
+ 功能视图
+ */
+- (YBGoodsDeatilImageBoomBtnView *)BoomBtnView {
+    if (!_BoomBtnView) {
+        _BoomBtnView = [[YBGoodsDeatilImageBoomBtnView alloc]init];
+        _BoomBtnView.backgroundColor = [UIColor clearColor];
+    }
+    return _BoomBtnView;
+}
+
+/**
+ 状态视图
+ */
+- (YBGoodsDeatilImageBoomsStatusView *)BoomStatusView {
+    if (!_BoomStatusView) {
+        _BoomStatusView = [[YBGoodsDeatilImageBoomsStatusView alloc]init];
+        _BoomStatusView.backgroundColor = [UIColor clearColor];
+        _BoomStatusView.layer.masksToBounds = YES;
+        _BoomStatusView.layer.cornerRadius = 3;
+    }
+    return _BoomStatusView;
+}
+
+/**
+ 底部视图的背景
+ */
+- (ZJBaseView *)boomBackBigView {
+    if (!_boomBackBigView) {
+        _boomBackBigView = [[ZJBaseView alloc]init];
+        _boomBackBigView.backgroundColor = [UIColor clearColor];
+        UIImageView * bigimageview = [[UIImageView alloc]init];
+        bigimageview.image = [UIImage imageNamed:@"details_shadowboom_bg"];
+        [_boomBackBigView addSubview:bigimageview];
+        
+        [bigimageview mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.top.mas_equalTo(_boomBackBigView).mas_offset(0);
+        }];
+    }
+    return _boomBackBigView;
+}
+
+/**
+ 顶部视图
+ */
+- (YBGoodsDeatilImageTopView *)TopView {
+    if (!_TopView) {
+        _TopView = [[YBGoodsDeatilImageTopView alloc]init];
+        _TopView.backgroundColor = [UIColor clearColor];
+    }
+    return _TopView;
+}
+
+/**
+ 顶部视图的背景
+ */
+//- (ZJBaseView *)topviewbackBigView {
+//    if (!_topviewbackBigView) {
+//        _topviewbackBigView = [[ZJBaseView alloc]init];
+//        _topviewbackBigView.backgroundColor = [UIColor blackColor];
+//        _topviewbackBigView.alpha = 0.2;
+//    }
+//    return _topviewbackBigView;
+//}
+
+
+@end

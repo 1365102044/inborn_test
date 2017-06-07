@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/code/!svn/ver/4248/inshop/ios/trunk/inborn/inborn/Module/Payment/Controller
+END
+YBPaymentResultController.h
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/code/!svn/ver/3872/inshop/ios/trunk/inborn/inborn/Module/Payment/Controller/YBPaymentResultController.h
+END
+YBPaymentController.h
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/code/!svn/ver/2804/inshop/ios/trunk/inborn/inborn/Module/Payment/Controller/YBPaymentController.h
+END
+YBPaymentController.storyboard
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/code/!svn/ver/4123/inshop/ios/trunk/inborn/inborn/Module/Payment/Controller/YBPaymentController.storyboard
+END
+YBPenToPayController.h
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/code/!svn/ver/3053/inshop/ios/trunk/inborn/inborn/Module/Payment/Controller/YBPenToPayController.h
+END
+YBPenToPayController.storyboard
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/code/!svn/ver/4182/inshop/ios/trunk/inborn/inborn/Module/Payment/Controller/YBPenToPayController.storyboard
+END
+YBPaymentResultController.m
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/code/!svn/ver/4232/inshop/ios/trunk/inborn/inborn/Module/Payment/Controller/YBPaymentResultController.m
+END
+YBPaymentController.m
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/code/!svn/ver/4248/inshop/ios/trunk/inborn/inborn/Module/Payment/Controller/YBPaymentController.m
+END
+YBPenToPayController.m
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/code/!svn/ver/3542/inshop/ios/trunk/inborn/inborn/Module/Payment/Controller/YBPenToPayController.m
+END
+YBTransferController.h
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/code/!svn/ver/2811/inshop/ios/trunk/inborn/inborn/Module/Payment/Controller/YBTransferController.h
+END
+YBTransferController.storyboard
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/code/!svn/ver/2832/inshop/ios/trunk/inborn/inborn/Module/Payment/Controller/YBTransferController.storyboard
+END
+YBPaymentResultController.xib
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/code/!svn/ver/3168/inshop/ios/trunk/inborn/inborn/Module/Payment/Controller/YBPaymentResultController.xib
+END
+YBTransferController.m
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/code/!svn/ver/2811/inshop/ios/trunk/inborn/inborn/Module/Payment/Controller/YBTransferController.m
+END

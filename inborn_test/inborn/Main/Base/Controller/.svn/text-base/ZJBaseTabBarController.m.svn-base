@@ -1,0 +1,220 @@
+//
+//  ZJBaseTabBarController.m
+//  Project
+//
+//  Created by 郑键 on 17/1/11.
+//  Copyright © 2017年 zhengjian. All rights reserved.
+//
+
+#import "ZJBaseTabBarController.h"
+#import "ZJBaseNavigationController.h"
+#import "ZJLocalDataManager.h"
+#import "User_LocalData.h"
+#import "ZJBaseNavigationController.h"
+#import "YBLoginViewController.h"
+#import "YBDefaultButton.h"
+#import "YBComposeNewsPageViewController.h"
+#import "User_LocalData.h"
+#import "YXUploadIDPhotoViewController.h"
+
+@interface ZJBaseTabBarController ()<UITabBarControllerDelegate>
+
+@property(readonly,nonatomic) NSUInteger currentSelectIndex;
+@property(readonly, nonatomic) NSUInteger lastSelectedIndex;
+
+@end
+
+@implementation ZJBaseTabBarController
+
+#pragma mark - First.通知
+
+#pragma mark - Second.赋值
+
+#pragma mark - Third.点击事件
+
+- (void)buttonClick:(UIButton *)sender
+{
+    /**
+     *  发布按钮点击事件
+     */
+    YBComposeNewsPageViewController *newsPageViewController = [[YBComposeNewsPageViewController alloc] init];
+    ZJBaseNavigationController *navigationController = [[ZJBaseNavigationController alloc] initWithRootViewController:newsPageViewController];
+    newsPageViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
+
+#pragma mark - Fourth.代理方法
+
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+    //获得选中的item
+    NSUInteger tabIndex = [tabBar.items indexOfObject:item];
+    _currentSelectIndex = tabIndex;
+    if (tabIndex != self.selectedIndex) {
+        //设置最近一次变更
+        _lastSelectedIndex = self.selectedIndex;
+    }
+    
+    if (_currentSelectIndex == 0) {
+        [SYSTEM_NOTIFICATIONCENTER postNotificationName:PUBLIC_REFRESHHOMEPAGE_NOTIFICATION
+                                                 object:nil
+                                               userInfo:nil];
+    }
+}
+
+/*
+ @brief 进入个人中心的时候 登录的判断
+ */
+-(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
+{
+    if (_currentSelectIndex == 4) {
+        if(![User_LocalData getTokenId]){
+            loginTypeEnum type = generalLoginType;
+            if ([User_LocalData getUserData].realphone.length != 0
+                && [User_LocalData getUserData].realphone != nil)
+            {
+                type = haveAcountLoginType;
+            }
+            YBLoginViewController *loginVC = [YBLoginViewController creatLoginViewControllerWithType:type
+                                                                                              extend:nil];
+            ZJBaseNavigationController *navi = [[ZJBaseNavigationController alloc] initWithRootViewController:loginVC];
+            [loginVC formTabbarWith:@"formTabbar" lastSelectTabbarItemIndex:self.lastSelectedIndex];
+            loginVC.PushMeMainBlock = ^(){
+                self.selectedIndex = 4;
+                return YES;
+            };
+            [self presentViewController:navi animated:YES completion:nil];
+            return NO;
+        }else{
+            return  YES;
+        }
+    }
+    return YES;
+}
+
+#pragma mark - Fifth.控制器生命周期
+
+/**
+ 初始化TabBar控制器
+
+ @return TabBar控制器
+ */
+- (instancetype)init
+{
+    if (self = [super init]) {
+        
+        /**
+         *  配置样式
+         */
+        [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:ZJCOLOR.color_c8,
+                                                            NSFontAttributeName:SYSTEM_REGULARFONT(10.f)}
+                                                 forState:UIControlStateNormal];
+        [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:ZJCOLOR.color_c8,
+                                                            NSFontAttributeName:SYSTEM_REGULARFONT(10.f)}
+                                                 forState:UIControlStateSelected];
+    }
+    return self;
+}
+
+/**
+ 视图加载完毕
+ */
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.delegate = self;
+    [self addSubControllers];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    /**
+     *  添加发布按钮
+     */
+    [self composeButton];
+}
+
+#pragma mark - Sixth.界面配置
+
+/**
+ 添加所有子控制器
+ */
+- (void)addSubControllers
+{
+    NSString *rootViewControllerChildControllersFilePath            = [[NSBundle mainBundle] pathForResource:@"BaseTabBarViewControllerChildViewController.plist"
+                                                                                                      ofType:nil];
+    NSData *data                                                    = [NSData dataWithContentsOfFile:rootViewControllerChildControllersFilePath];
+    NSDictionary *dict                                              = [NSDictionary dictionaryWithPlistData:data];
+    NSArray *childControllersArray                                  = dict[@"ChildViewControllersArray"];
+    [childControllersArray enumerateObjectsUsingBlock:^(NSDictionary *  _Nonnull obj,
+                                                        NSUInteger idx,
+                                                        BOOL * _Nonnull stop) {
+        Class ViewController                                        = NSClassFromString(obj[@"viewController"]);
+        UIViewController *viewController                            = [[ViewController alloc] init];
+        [self addSubControllerWithTitleKey:obj[@"title"]
+                             imageFilePath:obj[@"imageFilePath"]
+                                imageNamed:obj[@"imageNamed"]
+                            viewController:viewController
+                                     index:idx];
+    }];
+}
+
+/**
+ 添加子控制器c
+
+ @param titleKey                titleStringKey
+ @param imageFilePath           图片路径
+ @param imageNamed              图片名称
+ @param viewController          子控制器
+ */
+- (void)addSubControllerWithTitleKey:(NSString *)titleKey
+                       imageFilePath:(NSString *)imageFilePath
+                          imageNamed:(NSString *)imageNamed
+                      viewController:(UIViewController *)viewController
+                               index:(NSUInteger)index
+{
+    ZJBaseNavigationController *navigationController            = [[ZJBaseNavigationController alloc]initWithRootViewController:viewController];
+    navigationController.tabBarItem.title                       = ZJSTRING(titleKey);
+    UIImage *imageNor                                           = ZJIMAGE(imageFilePath,
+                                                                          imageNamed,
+                                                                          ZJProjectLoadImageDefault).firstObject;
+    if (index != 2) {
+        imageNor                                                    = [imageNor imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    }
+    navigationController.tabBarItem.image                       = imageNor;
+    UIImage *imageHig                                           = ZJIMAGE(imageFilePath,
+                                                                          imageNamed,
+                                                                          ZJProjectLoadImageDefault).lastObject;
+    if (index != 2) {
+        imageHig                                                    = [imageHig imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    }
+    navigationController.tabBarItem.selectedImage               = imageHig;
+    
+    [self addChildViewController:navigationController];
+}
+
+#pragma mark - Seventh.懒加载
+
+- (YBDefaultButton *)composeButton
+{
+    if (!_composeButton) {
+        
+        YBDefaultButton *composeButton = [YBDefaultButton buttonImageWithImageFilePath:IMAGEFILEPATH_TABBAR
+                                                                            imageNamed:@"tabBar_output"
+                                                                                  type:ZJProjectButtonSetImage
+                                                                                target:self
+                                                                              selector:@selector(buttonClick:)];
+        composeButton.frame = CGRectMake(self.tabBar.width / 5 * 2,
+                                         0,
+                                         self.tabBar.width / 5,
+                                         self.tabBar.height);
+        
+        _composeButton = composeButton;
+        [self.tabBar addSubview:self.composeButton];
+        
+    }
+    return _composeButton;
+}
+
+@end

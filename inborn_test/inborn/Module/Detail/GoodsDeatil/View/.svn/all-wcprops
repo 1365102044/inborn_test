@@ -1,0 +1,203 @@
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/code/!svn/ver/4257/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View
+END
+YBGoodsDeatilImageBoomsStatusView.h
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/code/!svn/ver/3406/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilImageBoomsStatusView.h
+END
+YBGoodsDeatilTableViewCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/code/!svn/ver/3628/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilTableViewCell.h
+END
+YBGoodsDeatilImageBoomsStatusView.m
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/code/!svn/ver/4219/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilImageBoomsStatusView.m
+END
+YBGoodsDeatilTableViewCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/code/!svn/ver/3628/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilTableViewCell.m
+END
+YBGoodsDeatilPopViewTableViewCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/code/!svn/ver/2614/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilPopViewTableViewCell.h
+END
+YBGoodsDeatilImageBoomBtnView.h
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/code/!svn/ver/2926/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilImageBoomBtnView.h
+END
+YBGoodsDeatilImageBoomStatusView.h
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/code/!svn/ver/2851/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilImageBoomStatusView.h
+END
+YBSellerInforView.h
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/code/!svn/ver/2588/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBSellerInforView.h
+END
+YBGoodsDeatilPopViewTableViewCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/code/!svn/ver/2730/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilPopViewTableViewCell.m
+END
+YBGoodsDeatilImageBoomBtnView.m
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/code/!svn/ver/3406/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilImageBoomBtnView.m
+END
+YBGoodsDeatilImageBoomStatusView.m
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/code/!svn/ver/3336/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilImageBoomStatusView.m
+END
+YBSellerInforView.m
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/code/!svn/ver/3152/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBSellerInforView.m
+END
+YBGoodsDeatilNaviMoreView.h
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/code/!svn/ver/3000/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilNaviMoreView.h
+END
+YBGoodsDeatilCollectionSectionView.h
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/code/!svn/ver/3473/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilCollectionSectionView.h
+END
+YBGoodsDeatilPresentFromboomView.h
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/code/!svn/ver/3000/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilPresentFromboomView.h
+END
+YBGoodsDeatilBoomBarView.h
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/code/!svn/ver/2926/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilBoomBarView.h
+END
+YBGoodsDeatilImgeMoreItemView.h
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/code/!svn/ver/4190/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilImgeMoreItemView.h
+END
+YBGoodsDeatilNaviMoreView.m
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/code/!svn/ver/4257/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilNaviMoreView.m
+END
+YBGoodsDeatilCollectionSectionView.m
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/code/!svn/ver/4109/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilCollectionSectionView.m
+END
+YBGoodsDeatilPresentFromboomView.m
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/code/!svn/ver/3628/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilPresentFromboomView.m
+END
+YBGoodsDeatilBoomBarView.m
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/code/!svn/ver/3495/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilBoomBarView.m
+END
+YBGoodDeatilSeactionCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/code/!svn/ver/2588/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodDeatilSeactionCell.h
+END
+YBGoodsDeatilImgeMoreItemView.m
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/code/!svn/ver/4257/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilImgeMoreItemView.m
+END
+YBGoodsDeatilHeaderView.h
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/code/!svn/ver/3889/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilHeaderView.h
+END
+YBGoodDeatilSeactionCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/code/!svn/ver/3459/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodDeatilSeactionCell.m
+END
+YBGoodsDeatilHeaderView.m
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/code/!svn/ver/4219/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilHeaderView.m
+END
+YBGoddsDeatilCutTimeView.h
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/code/!svn/ver/2958/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoddsDeatilCutTimeView.h
+END
+YBGoddsDeatilCutTimeView.m
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/code/!svn/ver/3344/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoddsDeatilCutTimeView.m
+END
+YBGoodsDeatilImageTopView.h
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/code/!svn/ver/3271/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilImageTopView.h
+END
+YBGoodsDeatilImageTopView.m
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/code/!svn/ver/4204/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilImageTopView.m
+END
+YBTopImageBoomLableBtn.h
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/code/!svn/ver/2335/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBTopImageBoomLableBtn.h
+END
+YBTopImageBoomLableBtn.m
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/code/!svn/ver/2335/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBTopImageBoomLableBtn.m
+END
+YBGoodsDeatilTableViewCell.xib
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/code/!svn/ver/3628/inshop/ios/trunk/inborn/inborn/Module/Detail/GoodsDeatil/View/YBGoodsDeatilTableViewCell.xib
+END

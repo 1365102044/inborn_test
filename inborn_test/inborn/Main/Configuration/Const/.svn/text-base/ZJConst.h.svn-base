@@ -1,0 +1,248 @@
+/**
+ *  头文件说明
+ *  1、公用常量
+ */
+
+#import <UIKit/UIKit.h>
+
+//** =========================================================================================== */
+//** ============================================系统=========================================== */
+//** =========================================================================================== */
+
+/**
+ *  系统网络请求分页页面大小
+ */
+UIKIT_EXTERN NSInteger const SEVRIES_PAGESIZE;
+
+/**
+ *  系统网络请求超时时间
+ */
+UIKIT_EXTERN CGFloat const SEVRIES_TIMEOUT;
+
+/**
+ *  主题样式
+ */
+UIKIT_EXTERN NSString * const PROJECT_THEME_DEFAULT;
+
+/**
+ *  高亮图片拼接后缀
+ */
+UIKIT_EXTERN NSString * const PROJECT_THEME_IMAGE_HIG;
+
+/**
+ *  普通图片拼接后缀
+ */
+UIKIT_EXTERN NSString * const PROJECT_THEME_IMAGE_NOR;
+
+/**
+ *  禁用图片拼接后缀
+ */
+UIKIT_EXTERN NSString * const PROJECT_THEME_IMAGE_DIS;
+
+/**
+ * 状态栏高度
+ */
+UIKIT_EXTERN CGFloat const STATUS_BAR_HEIGHT;
+
+/**
+ * NaviBar高度
+ */
+UIKIT_EXTERN CGFloat const NAVIGATION_BAR_HEIGHT;
+
+/**
+ * 分钟秒数
+ */
+UIKIT_EXTERN CGFloat const TIME_MINUTE;
+
+/**
+ * 小时秒数
+ */
+UIKIT_EXTERN CGFloat const TIME_HOUR;
+
+/**
+ * 天秒数
+ */
+UIKIT_EXTERN CGFloat const TIME_DAY;
+
+/**
+ * 星期秒数
+ */
+UIKIT_EXTERN CGFloat const TIME_WEEK;
+
+/**
+ * 月秒数
+ */
+UIKIT_EXTERN CGFloat const TIME_MONTH;
+
+/**
+ * 年秒数
+ */
+UIKIT_EXTERN CGFloat const TIME_YEAR;
+
+/**
+ * 网络请求超时时间
+ */
+UIKIT_EXTERN CGFloat const NETREQUEST_TIMEOUT;
+
+/**
+ * 默认时间格式
+ */
+UIKIT_EXTERN NSString * const TIME_FORMATTER_DEFAULT;
+
+/**
+ * 图片资源文件路径
+ */
+UIKIT_EXTERN NSString * const RESOURCESBUNDLE_IMAGE;
+
+/**
+ * string资源文件路径
+ */
+UIKIT_EXTERN NSString * const RESOURCESBUNDLE_STRING;
+
+/**
+ * color资源文件路径
+ */
+UIKIT_EXTERN NSString * const RESOURCESBUNDLE_COLOR;
+
+/**
+ * 本地数据路径(测试使用)
+ */
+UIKIT_EXTERN NSString * const LOCALEDATAPATH;
+
+//** =========================================================================================== */
+//** =========================================第三方资源配置====================================== */
+//** =========================================================================================== */
+
+/**
+ * 百度统计APP_KEY
+ */
+UIKIT_EXTERN NSString * const STYTEM_THIRD_BAIDU_STATISTICS_APPKEY;
+
+/**
+ * JPush APP_KEY
+ */
+UIKIT_EXTERN NSString * const STYTEM_THIRD_JUPSH_APPKEY;
+
+/**
+ * JPush channel
+ */
+UIKIT_EXTERN NSString * const STYTEM_THIRD_JUPSH_CHANNEL;
+
+/**
+ * MEIQIA APP_KEY 生产
+ */
+UIKIT_EXTERN NSString * const STYTEM_THIRD_MEIQIA_APPKEY_PRO;
+
+/**
+ * MEIQIA APP_KEY 测试
+ */
+UIKIT_EXTERN NSString * const STYTEM_THIRD_MEIQIA_APPKEY_DEV;
+
+/**
+ * SHARE APP_KEY
+ */
+UIKIT_EXTERN NSString * const STYTEM_THIRD_SHARE_APPKEY_DEV;
+
+/**
+ * WECHAT APP_KEY_PRO
+ */
+UIKIT_EXTERN NSString * const STYTEM_THIRD_WECHAT_APPKEY_PRO;
+
+/**
+ * WECHAT APP_SECRET_PRO
+ */
+UIKIT_EXTERN NSString * const STYTEM_THIRD_WECHAT_SECRET_PRO;
+
+/**
+ * WECHAT AUTHSCOPE_PRO
+ */
+UIKIT_EXTERN NSString * const STYTEM_THIRD_WECHAT_AUTHSCOPE_PRO;
+
+/**
+ * WECHAT AUTHSTATE_PRO
+ */
+UIKIT_EXTERN NSString * const STYTEM_THIRD_WECHAT_AUTHSTATE_PRO;
+
+/**
+ * WEIBO APP_KEY
+ */
+UIKIT_EXTERN NSString * const STYTEM_THIRD_WEIBO_APPKEY_PRO;
+
+/**
+ * WEIBO SECRET
+ */
+UIKIT_EXTERN NSString * const STYTEM_THIRD_WEIBO_SECRET_PRO;
+
+/**
+ * TENCEOPEN APP_KEY
+ */
+UIKIT_EXTERN NSString * const STYTEM_THIRD_TENCEOPEN_APPKEY_PRO;
+
+//** =========================================================================================== */
+//** ==========================================正则表达式========================================= */
+//** =========================================================================================== */
+
+/**
+ * 正则表达式_验证邮箱号码
+ */
+UIKIT_EXTERN NSString * const REGULAREXPRESSION_ISMAIL;
+
+/**
+ * 正则表达式_验证昵称 
+ */
+UIKIT_EXTERN NSString * const REGULAREXPRESSION_ISNICKNAEM;
+
+/**
+ * 正则表达式_验证密码规则
+ */
+UIKIT_EXTERN NSString * const REGULAREXPRESSION_ISPWD;
+
+/**
+ * 正则表达式_验证数字
+ */
+UIKIT_EXTERN NSString * const REGULAREXPRESSION_ISNUM;
+
+/**
+ * 正则表达式_手机号码
+ */
+UIKIT_EXTERN NSString * const REGULAREXPRESSION_PHONENUMBER_MOBILE;
+
+/**
+ * 中国移动：China Mobile
+ * 134[0-8],135,136,137,138,139,150,151,157,158,159,182,187,188
+ */
+UIKIT_EXTERN NSString * const REGULAREXPRESSION_PHONENUMBER_CM;
+
+/**
+ * 中国联通：China Unicom
+ * 130,131,132,152,155,156,185,186
+ */
+UIKIT_EXTERN NSString * const REGULAREXPRESSION_PHONENUMBER_CU;
+
+/**
+ * 中国电信：China Telecom
+ * 133,1349,153,180,189
+ */
+UIKIT_EXTERN NSString * const REGULAREXPRESSION_PHONENUMBER_CT;
+
+/**
+ * 大陆地区固话及小灵通
+ * 区号：010,020,021,022,023,024,025,027,028,029
+ * 号码：七位或八位
+ */
+UIKIT_EXTERN NSString * const REGULAREXPRESSION_PHONENUMBER_PHS;
+
+/**
+ * 正则表达式_虚拟号码
+ */
+UIKIT_EXTERN NSString * const REGULAREXPRESSION_PHONENUMBER_XNHM;
+
+/**
+ * 正则表达式_控制输入不含特殊符号(能够输入汉字、字母、数字)
+ */
+UIKIT_EXTERN NSString * const REGULAREXPRESSION_ISSTR;
+
+/**
+ * 正则表达式_验证身份证
+ */
+UIKIT_EXTERN NSString * const REGULAREXPRESSION_IDENTITYCARD;

@@ -1,0 +1,592 @@
+//
+//  YBGoodsDeatilNaviMoreView.m
+//  inborn
+//
+//  Created by 刘文强 on 2017/3/22.
+//  Copyright © 2017年 inborn. All rights reserved.
+//
+
+#import "YBGoodsDeatilNaviMoreView.h"
+#import "YBGoodsDeatilViewController.h"
+#import "YBLikeAndRecordListViewController.h"
+#import "YBFeedBackViewController.h"
+static NSString *GOODSDEATILNAVIMORETABLEVIEWCELLINDIFITER = @"GOODSDEATILNAVIMORETABLEVIEWCELLINDIFITER";
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+static NSString * currentColor = @"#60636B";
+//static NSString * currentColor = ZJCOLOR.color_c2;
+@interface YBGoodsDeatilNaviMoreView ()<UITableViewDelegate,UITableViewDataSource>
+
+@property (nonatomic, assign) CGPoint origin;
+@property (nonatomic, assign) CGFloat height;
+@property (nonatomic, assign) CGFloat width;
+@property (nonatomic, assign) WBArrowDirection direction;
+@property(nonatomic,strong) UITableView * tableView;
+@property(nonatomic,strong) NSArray * dataArr;
+@property(nonatomic,copy) clickTableViewCellBlock  clickCellBlock;
+/**
+ 图片数组
+ */
+@property(nonatomic,strong) NSArray * cellIconArr;
+@property(nonatomic,strong) UIViewController * sourVC;
+@property(nonatomic,assign) CGFloat  cellHEI;
+@property(nonatomic,strong) NSMutableArray * cellViewArr;
+@end
+
+@implementation YBGoodsDeatilNaviMoreView
+
++ (instancetype)share
+{
+    static dispatch_once_t onceToken;
+    static YBGoodsDeatilNaviMoreView *instance;
+    dispatch_once(&onceToken, ^{
+        instance = [[YBGoodsDeatilNaviMoreView alloc]init];
+    });
+    return instance;
+}
+
+/**
+ 初始化
+ */
+- (void)addMoreViewWithOrigin:(CGPoint)origin
+                        Width:(CGFloat)width
+                       Height:(float)height
+                    Direction:(WBArrowDirection)direction
+                       sourVC:(UIViewController *)sourVC
+                      dataArr:(NSArray *)dataArr
+                     ImageArr:(NSArray *)ImageArr
+                   cellHeight:(CGFloat)cellHeight
+               clickCellBlcok:(clickTableViewCellBlock)block
+{
+    
+    //    [self dismiss];
+    
+    self.frame = CGRectMake(0, 0, SCREEN_WIDTH , SCREEN_HEIGHT);
+    
+    self.origin = CGPointZero;
+    self.height = 0;
+    self.cellHEI = 0;
+    self.dataArr = [NSArray array];
+    self.cellIconArr = [NSArray array];
+    
+    
+    self.origin = origin;
+    self.backgroundColor = [UIColor clearColor];
+    self.cellHEI = cellHeight;
+    self.height = cellHeight * dataArr.count + ADJUST_PERCENT_FLOAT(2);
+    self.width = width;
+    self.direction = direction;
+    _sourVC = sourVC;
+    self.backView =[[UIView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-width-5, origin.y, width, self.height)];
+    self.backView.backgroundColor =  [UIColor colorWithHexString:currentColor];
+    if (ImageArr.count) {
+        self.backView.backgroundColor =  ZJCOLOR.color_c2;
+    }
+    
+    [self addSubview:self.backView];
+    self.backView.layer.cornerRadius = 3;
+    self.backView.layer.masksToBounds = YES;
+    
+    _cellHEI = cellHeight;
+    self.cellIconArr = ImageArr;
+    self.dataArr = dataArr;
+    [self.backView addSubview:self.tableView];
+    self.tableView.frame = CGRectMake(0, ADJUST_PERCENT_FLOAT(2),self.backView.width, self.backView.height);
+    self.clickCellBlock = block;
+    [self.tableView reloadData];
+    /**
+     清空绘制内容
+     */
+    [self setNeedsDisplay];
+}
+
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , SCREEN_HEIGHT)];
+    if (self) {
+        self.frame = CGRectMake(0, 0, SCREEN_WIDTH , SCREEN_HEIGHT);
+    }
+    return self;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.clickCellBlock) {
+        self.clickCellBlock(indexPath.row);
+        [self dismiss];
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView  dequeueReusableCellWithIdentifier:@"cell"];
+    if (!cell) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+    }else{
+        while ([cell.contentView.subviews lastObject] != nil){
+            
+            [(UIView *)[cell.contentView.subviews lastObject] removeFromSuperview];
+        }
+    }
+    cell.backgroundColor = [UIColor colorWithHexString:currentColor];
+    if (self.cellIconArr.count) {
+        cell.backgroundColor =  ZJCOLOR.color_c2;
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    UIView *cellview = [self creatCellSubviewdesc:self.dataArr[indexPath.row] icon:self.cellIconArr[indexPath.row] indexpath:indexPath];
+    cellview.frame = CGRectMake(0, 0, self.width, _cellHEI);
+    [cell.contentView addSubview:cellview];
+    return cell;
+}
+
+- (UIView *)creatCellSubviewdesc:(NSString *)desc icon:(NSString *)iconname indexpath:(NSIndexPath *)indexpath
+{
+    UIView *cellview = [[UIView alloc]init];
+    
+    UIImageView *icon = [[UIImageView alloc]init];
+    if ([iconname isEqualToString:@"details_message_kefu_icon"]) {
+        icon.image =  [UIImage imageNamed:@"details_kefu_icon"];
+    }else{
+        icon.image = ZJCURRENTIMAGE(IMAGEFILEPATH_DETAIL, iconname, ZJProjectLoadImageDefault);
+    }
+    [cellview addSubview:icon];
+    
+    UILabel *deslable= [[UILabel alloc]init];
+    deslable.textColor = ZJCOLOR.color_c0;
+    deslable.font = SYSTEM_REGULARFONT(14);
+    deslable.text = desc;
+    [cellview addSubview:deslable];
+    
+    UIView *line = [[UIView alloc]init];
+    line.backgroundColor = ZJCOLOR.color_c0;
+    line.alpha = 0.76;
+    if (self.cellIconArr) {
+        line.backgroundColor = [UIColor colorWithHexString:@"#414655"];
+        line.alpha = 1;
+    }
+    [cellview addSubview:line];
+    
+    if (_cellIconArr.count > 0) {
+        icon.frame = CGRectMake(ADJUST_PERCENT_FLOAT(12), (_cellHEI - ADJUST_PERCENT_FLOAT(16) )/2, ADJUST_PERCENT_FLOAT(16), ADJUST_PERCENT_FLOAT(16));
+        deslable.frame = CGRectMake(icon.right+ADJUST_PERCENT_FLOAT(10), 0, ADJUST_PERCENT_FLOAT(100), ADJUST_PERCENT_FLOAT(20));
+        deslable.centerY = icon.centerY;
+        deslable.textAlignment = NSTextAlignmentLeft;
+    }else{
+        deslable.textAlignment = NSTextAlignmentCenter;
+        deslable.frame = CGRectMake(0, 0, self.width, _cellHEI);
+    }
+    if (self.dataArr.count > 1) {
+        if (indexpath.row < self.dataArr.count - 1) {
+            line.frame = CGRectMake(ADJUST_PERCENT_FLOAT(12), _cellHEI - 0.5, self.width - ADJUST_PERCENT_FLOAT(24), 0.5);
+        }
+    }
+    cellview.tag = indexpath.row + 1;
+    return cellview;
+}
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.dataArr.count;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return _cellHEI;
+}
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc]init];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.scrollEnabled = NO;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
+    return _tableView;
+}
+
+-(void)drawRect:(CGRect)rect
+{
+    CGContextRef context=UIGraphicsGetCurrentContext();
+//    YBLog(@"-+++--%.0f--%.0f-",self.origin.x,self.origin.y);
+    
+    if (_direction==WBArrowDirectionLeft1) {
+        
+        
+        CGFloat startX = self.origin.x;
+        CGFloat startY = self.origin.y;
+        CGContextMoveToPoint(context, startX, startY);//设置起点
+        CGContextAddLineToPoint(context, startX+5, startY-5);
+        CGContextAddLineToPoint(context, startX+5, startY+5);
+    }
+    else if (_direction==WBArrowDirectionLeft2)
+    {
+        
+        
+        CGFloat startX = self.origin.x;
+        CGFloat startY = self.origin.y;
+        CGContextMoveToPoint(context, startX, startY);//设置起点
+        CGContextAddLineToPoint(context, startX+5, startY-5);
+        CGContextAddLineToPoint(context, startX+5, startY+5);
+        
+    }
+    else if (_direction==WBArrowDirectionLeft3)
+    {
+        
+        
+        CGFloat startX = self.origin.x;
+        CGFloat startY = self.origin.y;
+        CGContextMoveToPoint(context, startX, startY);//设置起点
+        CGContextAddLineToPoint(context, startX+5, startY-5);
+        CGContextAddLineToPoint(context, startX+5, startY+5);
+        
+    }
+    else if (_direction==WBArrowDirectionRight1)
+    {
+        CGFloat startX = self.origin.x;
+        CGFloat startY = self.origin.y;
+        CGContextMoveToPoint(context, startX, startY);//设置起点
+        CGContextAddLineToPoint(context, startX-5, startY-5);
+        CGContextAddLineToPoint(context, startX-5, startY+5);
+        
+    }
+    else if (_direction==WBArrowDirectionRight2)
+    {
+        CGFloat startX = self.origin.x;
+        CGFloat startY = self.origin.y;
+        CGContextMoveToPoint(context, startX, startY);//设置起点
+        CGContextAddLineToPoint(context, startX-5, startY-5);
+        CGContextAddLineToPoint(context, startX-5, startY+5);
+        
+    }
+    else if (_direction==WBArrowDirectionRight3)
+    {
+        CGFloat startX = self.origin.x;
+        CGFloat startY = self.origin.y;
+        CGContextMoveToPoint(context, startX, startY);//设置起点
+        CGContextAddLineToPoint(context, startX-5, startY-5);
+        CGContextAddLineToPoint(context, startX-5, startY+5);
+        
+    }
+    else if (_direction==WBArrowDirectionUp1)
+    {
+        CGFloat startX = self.origin.x;
+        CGFloat startY = self.origin.y;
+        CGContextMoveToPoint(context, startX, startY);//设置起点
+        CGContextAddLineToPoint(context, startX + 5, startY +5);
+        CGContextAddLineToPoint(context, startX -5, startY+5);
+        
+    }
+    else if (_direction==WBArrowDirectionUp2)
+    {
+        CGFloat startX = self.origin.x;
+        CGFloat startY = self.origin.y;
+        CGContextMoveToPoint(context, startX, startY);//设置起点
+        CGContextAddLineToPoint(context, startX + 5, startY +5);
+        CGContextAddLineToPoint(context, startX -5, startY+5);
+    }
+    else if (_direction==WBArrowDirectionUp3)
+    {
+        CGFloat startX = self.origin.x;
+        CGFloat startY = self.origin.y;
+        CGContextMoveToPoint(context, startX, startY);//设置起点
+        CGContextAddLineToPoint(context, startX + 5, startY +5);
+        CGContextAddLineToPoint(context, startX -5, startY+5);
+        
+    }
+    else if (_direction==WBArrowDirectionDown1)
+    {
+        CGFloat startX = self.origin.x;
+        CGFloat startY = self.origin.y;
+        CGContextMoveToPoint(context, startX, startY);//设置起点
+        CGContextAddLineToPoint(context, startX - 5, startY -5);
+        CGContextAddLineToPoint(context, startX +5, startY-5);
+        
+    }
+    else if (_direction==WBArrowDirectionDown2)
+    {
+        CGFloat startX = self.origin.x;
+        CGFloat startY = self.origin.y;
+        CGContextMoveToPoint(context, startX, startY);//设置起点
+        CGContextAddLineToPoint(context, startX - 5, startY -5);
+        CGContextAddLineToPoint(context, startX +5, startY-5);
+        
+    }
+    else if (_direction==WBArrowDirectionDown3)
+    {
+        CGFloat startX = self.origin.x;
+        CGFloat startY = self.origin.y;
+        CGContextMoveToPoint(context, startX, startY);//设置起点
+        CGContextAddLineToPoint(context, startX - 5, startY -5);
+        CGContextAddLineToPoint(context, startX +5, startY-5);
+    }
+    
+    CGContextClosePath(context);
+    [self.backView.backgroundColor setFill];
+    [self.backgroundColor setStroke];
+    CGContextDrawPath(context, kCGPathFillStroke);
+    
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [touches anyObject];
+    if (![touch.view isEqual:self.backView]) {
+        [self dismiss];
+    }
+}
+
+-(void)popView
+{
+    NSArray *result=[self.backView subviews];
+    for (UIView *view in result) {
+        view.hidden=YES;
+    }
+    
+    UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
+    [keyWindow addSubview:self];
+    //动画效果弹出
+    self.alpha = 0;
+    
+    
+    if (_direction==WBArrowDirectionLeft1) {
+        self.backView.frame = CGRectMake(self.origin.x+5, self.origin.y, 0, 0);
+        [UIView animateWithDuration:0.2 animations:^{
+            self.alpha = 1;
+            self.backView.frame = CGRectMake(self.origin.x+5, self.origin.y-20, self.width,self. height);
+        }completion:^(BOOL finished) {
+            NSArray *result=[self.backView subviews];
+            for (UIView *view in result) {
+                
+                view.hidden=NO;
+                
+            }
+        }];
+        
+        
+    }
+    else if (_direction==WBArrowDirectionLeft2)
+    {
+        self.backView.frame = CGRectMake(self.origin.x+5, self.origin.y, 0, 0);
+        [UIView animateWithDuration:0.2 animations:^{
+            self.alpha = 1;
+            self.backView.frame = CGRectMake(self.origin.x+5, self.origin.y-self.height/2, self.width,self. height);
+            
+        }completion:^(BOOL finished) {
+            NSArray *result=[self.backView subviews];
+            for (UIView *view in result) {
+                
+                view.hidden=NO;
+                
+            }
+        }];
+    }
+    else if (_direction==WBArrowDirectionLeft3)
+    {
+        self.backView.frame = CGRectMake(self.origin.x+5, self.origin.y, 0, 0);
+        [UIView animateWithDuration:0.2 animations:^{
+            self.alpha = 1;
+            self.backView.frame = CGRectMake(self.origin.x+5, self.origin.y-self.height+20, self.width,self. height);
+        }completion:^(BOOL finished) {
+            NSArray *result=[self.backView subviews];
+            for (UIView *view in result) {
+                
+                view.hidden=NO;
+                
+            }
+        }];
+        
+    }
+    else if (_direction==WBArrowDirectionRight1)
+    {
+        self.backView.frame = CGRectMake(self.origin.x-5, self.origin.y, 0, 0);
+        [UIView animateWithDuration:0.2 animations:^{
+            self.alpha = 1;
+            self.backView.frame = CGRectMake(self.origin.x-5, self.origin.y-20, -self.width,self. height);
+        }completion:^(BOOL finished) {
+            
+            NSArray *result=[self.backView subviews];
+            for (UIView *view in result) {
+                
+                view.hidden=NO;
+                
+            }
+            
+        }];
+        
+    }
+    else if (_direction==WBArrowDirectionRight2)
+    {
+        self.backView.frame = CGRectMake(self.origin.x-5, self.origin.y, 0, 0);
+        [UIView animateWithDuration:0.2 animations:^{
+            self.alpha = 1;
+            self.backView.frame = CGRectMake(self.origin.x-5, self.origin.y-self.height/2, -self.width,self. height);
+        }completion:^(BOOL finished) {
+            
+            NSArray *result=[self.backView subviews];
+            for (UIView *view in result) {
+                
+                view.hidden=NO;
+                
+            }
+            
+        }];
+        
+    }
+    else if (_direction==WBArrowDirectionRight3)
+    {
+        self.backView.frame = CGRectMake(self.origin.x-5, self.origin.y, 0, 0);
+        [UIView animateWithDuration:0.2 animations:^{
+            self.alpha = 1;
+            self.backView.frame = CGRectMake(self.origin.x-5, self.origin.y-self.height+20, -self.width,self. height);
+        }completion:^(BOOL finished) {
+            
+            NSArray *result=[self.backView subviews];
+            for (UIView *view in result) {
+                
+                view.hidden=NO;
+                
+            }
+            
+        }];
+        
+    }
+    else if (_direction==WBArrowDirectionUp1)
+    {
+        self.backView.frame = CGRectMake(self.origin.x, self.origin.y+5, 0, 0);
+        [UIView animateWithDuration:0.2 animations:^{
+            self.alpha = 1;
+            self.backView.frame = CGRectMake(self.origin.x-20, self.origin.y+5, self.width,self. height);
+        }completion:^(BOOL finished) {
+            
+            NSArray *result=[self.backView subviews];
+            for (UIView *view in result) {
+                
+                view.hidden=NO;
+                
+            }
+            
+        }];
+        
+    }
+    else if (_direction==WBArrowDirectionUp2)
+    {
+        self.backView.frame = CGRectMake(self.origin.x, self.origin.y+5, 0, 0);
+        [UIView animateWithDuration:0.2 animations:^{
+            self.alpha = 1;
+            self.backView.frame = CGRectMake(self.origin.x-self.width/2, self.origin.y+5, self.width,self. height);
+        }completion:^(BOOL finished) {
+            
+            NSArray *result=[self.backView subviews];
+            for (UIView *view in result) {
+                
+                view.hidden=NO;
+                
+            }
+            
+        }];
+        
+    }
+    else if (_direction==WBArrowDirectionUp3)
+    {
+        self.backView.frame = CGRectMake(self.origin.x, self.origin.y+5, 0, 0);
+        [UIView animateWithDuration:0.2 animations:^{
+            self.alpha = 1;
+            self.backView.frame = CGRectMake(self.origin.x+20, self.origin.y+5, -self.width,self.height);
+        }completion:^(BOOL finished) {
+            
+            NSArray *result=[self.backView subviews];
+            for (UIView *view in result) {
+                
+                view.hidden=NO;
+                
+            }
+            
+        }];
+        
+    }
+    else if (_direction==WBArrowDirectionDown1)
+    {
+        self.backView.frame = CGRectMake(self.origin.x, self.origin.y-5, 0, 0);
+        [UIView animateWithDuration:0.2 animations:^{
+            self.alpha = 1;
+            self.backView.frame = CGRectMake(self.origin.x-20, self.origin.y-5, self.width,-self. height);
+        }completion:^(BOOL finished) {
+            
+            NSArray *result=[self.backView subviews];
+            for (UIView *view in result) {
+                
+                view.hidden=NO;
+                
+            }
+            
+        }];
+    }
+    else if (_direction==WBArrowDirectionDown2)
+    {
+        self.backView.frame = CGRectMake(self.origin.x, self.origin.y-5, 0, 0);
+        [UIView animateWithDuration:0.2 animations:^{
+            self.alpha = 1;
+            self.backView.frame = CGRectMake(self.origin.x-self.width/2, self.origin.y-5, self.width,-self. height);
+        }completion:^(BOOL finished) {
+            
+            NSArray *result=[self.backView subviews];
+            for (UIView *view in result) {
+                
+                view.hidden=NO;
+                
+            }
+            
+        }];
+        
+    }
+    else if (_direction==WBArrowDirectionDown3)
+    {
+        self.backView.frame = CGRectMake(self.origin.x, self.origin.y-5, 0, 0);
+        [UIView animateWithDuration:0.2 animations:^{
+            self.alpha = 1;
+            self.backView.frame = CGRectMake(self.origin.x-self.width+20, self.origin.y-5, self.width,-self. height);
+        }completion:^(BOOL finished) {
+            
+            NSArray *result=[self.backView subviews];
+            for (UIView *view in result) {
+                view.hidden=NO;
+            }
+        }];
+    }
+}
+
+-(void)dismiss{
+    self.dataArr = [NSArray array];
+    self.cellIconArr = [NSArray array];
+    
+    NSArray *result=[self.backView subviews];
+    for (UIView *view in result) {
+        
+        [view removeFromSuperview];
+    }
+    //动画效果淡出
+    [UIView animateWithDuration:0.2 animations:^{
+        self.alpha = 0;
+        self.backView.frame = CGRectMake(self.origin.x, self.origin.y, 0, 0);
+    } completion:^(BOOL finished) {
+        if (finished) {
+            [self removeFromSuperview];
+            [self removeAllSubviews];
+        }
+    }];
+}
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (self.dataArr.count - 1 == indexPath.row) {
+        cell.separatorInset = UIEdgeInsetsMake(100000, 1000, 0,0);
+    }
+    
+}
+- (NSMutableArray *)cellViewArr {
+    if (!_cellViewArr) {
+        _cellViewArr = [NSMutableArray array];
+    }
+    return _cellViewArr;
+}
+
+@end
